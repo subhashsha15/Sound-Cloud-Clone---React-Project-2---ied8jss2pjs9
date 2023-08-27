@@ -1,0 +1,378 @@
+/* top-part css */
+.songs {
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+}
+
+.songs-container {
+    display: flex;
+    flex-direction: column;
+    width: 1240px;
+}
+
+.songs-container-top {
+    background: linear-gradient(135deg, rgb(165, 171, 172) 0%, rgb(90, 104, 95) 100%);
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 20px 20px 30px;
+}
+
+.songs-container-top-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.song-details {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.playbtn .playbutton {
+    position: relative;
+    opacity: 1;
+    margin-top: 5px;
+}
+
+.song-title {
+    color: #fff;
+    font-weight: 100;
+    font-size: 24px;
+    line-height: 37px;
+    padding: 4px 7px;
+    background-color: rgba(0, 0, 0, .8);
+    margin-bottom: 5px;
+    font-family: Interstate, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
+}
+
+.song-genre {
+    padding: 2px 7px 3px;
+    font-size: 16px;
+    line-height: 1.2;
+    color: #ccc;
+    background-color: rgba(0, 0, 0, .8);
+    font-weight: 100;
+    width: 108px;
+    font-family: Interstate, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
+}
+
+.tracks {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, .8);
+    /* color: #ccc; */
+    color: #fff;
+    height: 110px;
+    width: 110px;
+    border-radius: 50%;
+    text-transform: uppercase;
+    gap: 2px;
+}
+
+.tracks div:nth-child(1) {
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+.tracks div:nth-child(2) {
+    font-size: 12px;
+    font-weight: 100;
+}
+
+.tracks div:nth-child(3) {
+    font-size: 14px;
+    line-height: 1;
+    color: #999;
+}
+
+.songs-container-top-right {
+    display: flex;
+    gap: 25px;
+}
+
+.songs-container-top-right span {
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 16px;
+    font-family: Interstate, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
+    font-weight: 100;
+}
+
+.songs-container-top-right img {
+    height: 340px;
+    width: 340px;
+}
+
+/* middle-part css */
+.songs-container-middle {
+    background-color: #fff;
+    display: flex;
+}
+
+.songs-container-middle-left {
+    width: 850px;
+    /* background-color: aquamarine; */
+    padding: 15px 30px;
+    border-right: 1px solid #f2f2f2;
+}
+
+.songs-container-middle-left-topIcons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.songs-container-middle-left-topIcons-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+}
+
+.songs-container-middle-left-topIcons-buttons button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    height: 26px;
+    padding: 2px 11px 2px 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    background-color: #fff;
+    cursor: pointer;
+    color: #333;
+    font-size: 14px;
+    line-height: 20px;
+    font-family: Interstate, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
+}
+
+.songs-container-middle-left-topIcons-buttons button:hover {
+    color: #333;
+    outline: 0;
+    border-color: #ccc;
+}
+
+.songs-container-middle-left-topIcons-buttons button+img {
+    height: 80px;
+    width: 20px;
+}
+
+.share-btn {
+    background: rgb(230, 115, 112) !important;
+    outline: rgb(255, 0, 0) solid !important;
+}
+
+.songs-container-middle-left-topIcons-likes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #999;
+    font-family: Interstate, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
+    font-weight: 100;
+}
+
+/* songs-container-middle-left-songs css */
+.songs-container-middle-left-songs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.songs-container-middle-left-songdetails {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.songs-container-middle-left-song {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #f2f2f2;
+    padding: 8px 10px 5px 10px;
+    position: relative;
+}
+
+.songs-container-middle-left-song-playbtn .MuiSvgIcon-fontSizeLarge {
+    font-size: 1.2rem !important;
+}
+
+.songs-container-middle-left-song-playbtn .pausebtn {
+    left: 1px;
+    top: 1px;
+}
+
+.songs-container-middle-left-song-playbtn .playbutton img {
+    top: 10%;
+    left: 18%;
+    height: 1rem;
+    width: 1rem;
+    z-index: 1;
+}
+
+.songs-container-middle-left-song-playbtn .playbutton {
+    position: absolute;
+    /* opacity: 1; */
+    left: 25px;
+    top: 24px;
+    height: 0px;
+    width: 0px;
+    padding: 10px 10px !important;
+}
+
+.songs-container-middle-left-song-playbtn {
+    /* z-index: 1; */
+    /* opacity: 0; */
+    display: none;
+    /* display: flex; */
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: #f2f2f2; */
+    /* background-color: red; */
+}
+
+.songs-container-middle-left-song-playbtn div {
+    display: flex;
+    gap: 5px;
+}
+
+.songs-container-middle-left-song-playbtn div button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    background-color: #fff;
+    font-size: 11px;
+    padding: 2px 5px 2px 4px;
+    height: 22px;
+    min-width: 25px;
+}
+
+.songs-container-middle-left-song-playbtn div button:hover {
+    color: #333;
+    outline: 0;
+    border-color: #ccc;
+}
+
+.songs-container-middle-left-song:hover .songs-container-middle-left-song-playbtn .playbutton {
+    opacity: 1;
+}
+
+.songs-container-middle-left-song:hover .songs-container-middle-left-song-playbtn {
+    opacity: 1;
+    display: flex;
+}
+
+.songs-container-middle-left-song:hover {
+    background-color: #f2f2f2;
+}
+
+.thumbnail-img img {
+    width: 30px;
+    height: 30px;
+}
+
+.index {
+    font-weight: 100;
+    color: #999;
+}
+
+.songDetail {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: normal;
+    font-family: Interstate, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
+}
+
+.songDetail span:nth-child(1) {
+    color: #999;
+    font-size: 12px;
+}
+
+.songDetail span:nth-child(2) {
+    color: #333;
+    font-size: 12px;
+}
+
+.numberofLikes {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 21rem;
+}
+
+.numberofLikes span {
+    color: #999;
+    font-size: 14px;
+}
+
+.songs-container-middle-left-song:hover .numberofLikes {
+    display: none;
+}
+
+/* songs-container-middle-right part css */
+.songs-container-middle-right {
+    padding: 40px 40px;
+    display: flex;
+    flex-direction: column;
+    max-width: 375px;
+}
+.songs-container-middle-right p{
+    margin: 0 0 15px;
+    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    font-weight: 100;
+    color: #333;
+    font-size: 12px;
+}
+.artists-featured-heading{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 30px;
+    color: #999;
+    border-bottom: 1px solid #f2f2f2;
+}
+.artists-featured-heading span{
+    font-size:14px;
+    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+}
+/* .artists-featured-items{
+    word-wrap: break-word;
+    overflow: hidden;
+} */
+/* bottom-part css */
+.songs-container-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    clear: both;
+    top: -1px;
+    height: 14px;
+    margin: 45px 0 0;
+    border-top: 1px solid #f2f2f2
+}
+
+.songs-container-bottom::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 14px;
+    position: absolute;
+    left: 0;
+    top: -9px;
+    background: url('/public/images/bottom-footer-img.png') 50% no-repeat;
+}

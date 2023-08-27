@@ -1,0 +1,168 @@
+.signup {
+    background: hsla(0, 0%, 94.9%, .9);
+}
+
+.signup-container {
+    position: relative;
+    height: 550px;
+    width: 450px;
+    background-color: #fff;
+    margin: 0px auto;
+    margin-top: 76px;
+    padding: 25px;
+    animation: slideFromTopToMiddle 0.8s ease-in-out forwards;
+}
+
+.close-signupModel {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.signup-container-top {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 50px;
+}
+
+.signup-container button,
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    height: 40px;
+    line-height: 18px;
+    padding: 10px 15px;
+    border: 1.2px solid #e5e5e5;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 100%;
+    gap: 8px;
+}
+
+.signup-container-top img {
+    height: 15px;
+    width: 15px;
+}
+
+.facebook-button {
+    background-color: #3578e5;
+    border-color: #3578e5;
+    color: #fff;
+}
+
+.google-button {
+    background-color: #fff;
+    border-color: #ccc;
+    color: #222;
+}
+
+.apple-button {
+    background-color: #000;
+    border-color: #000;
+    color: #fff;
+}
+
+.apple-button img {
+    height: 27px;
+    margin-right: -6px;
+    width: 25px;
+}
+
+.continue-button {
+    background-color: #f50;
+    border-color: #f50;
+    color: #fff;
+}
+
+.separator {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 1em auto;
+    position: relative;
+    text-align: center;
+}
+
+.separator::before {
+    border-top: 1px solid #333;
+    content: " ";
+    display: inline-block;
+    position: absolute;
+    top: 0.7em;
+    width: 43%;
+    left: 0;
+}
+
+.separator::after {
+    border-top: 1px solid #333;
+    content: " ";
+    display: inline-block;
+    position: absolute;
+    top: 0.7em;
+    width: 43%;
+    right: 0;
+}
+
+.signup-container-middle {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-container-middle input {
+    width: 100%;
+    border-radius: 5px;
+    font-size: 18px !important;
+    line-height: 24px;
+    padding: 7px 8px;
+    border: 1px solid #ccc;
+    font-weight: lighter;
+    transition: border-color .1s;
+    margin-bottom: 10px !important;
+    color: #333 !important;
+}
+
+.signup-container-middle input:focus {
+    border-color: #999;
+    outline: 0;
+}
+
+.signup-container-middle span {
+    cursor: pointer;
+    margin: 10px 0px;
+    color: #044dd2;
+    font-size: 14px;
+    text-align: right;
+    line-height: 1.462;
+}
+
+.signup-container-bottom {
+    color: #999;
+    font-size: 13px;
+    line-height: 1.462;
+    text-align: left;
+}
+
+.signup-container-bottom span {
+    color: #044dd2;
+}
+
+@keyframes slideFromTopToMiddle {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+/* error css*/
+.error,.signup-container-middle input {
+    color: #d61348;
+    border-color: #d61348;
+    margin-bottom: 0.8em;
+    font-size: 13px;
+}

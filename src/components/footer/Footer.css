@@ -1,0 +1,16 @@
+.footer{
+    color: #ccc;
+    font-size: 12px;
+    padding: 11px 0;
+    border-top: 1px solid #f2f2f2;
+    line-height: 1.5;
+}
+.footer span{
+    margin-top: 5px;
+}
+.footer span:nth-child(1){
+    color: #38d;
+}
+.footer span:nth-child(2){
+        color: #333;
+}

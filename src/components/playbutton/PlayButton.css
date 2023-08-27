@@ -1,0 +1,41 @@
+.playbutton {
+    height: 65px;
+    width: 65px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    opacity: 0;
+}
+
+.playbutton:hover {
+    background-color: #f30;
+}
+
+.playbutton img {
+    position: absolute;
+    top: 21%;
+    left: 25%;
+    height: 2.5rem;
+    width: 2.5rem;
+}
+
+.card:hover .playbutton {
+    opacity: 1;
+}
+
+.MuiSvgIcon-fontSizeLarge {
+    font-size: 3.5rem !important;
+}
+
+.pausebtn {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}

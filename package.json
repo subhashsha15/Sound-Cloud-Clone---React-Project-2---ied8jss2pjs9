@@ -12,8 +12,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@reduxjs/toolkit": "^1.9.5",
+    "axios": "^1.4.0",
+    "firebase": "^10.2.0",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-loader-spinner": "^5.3.4",
+    "react-multi-carousel": "^2.8.4",
+    "react-redux": "^8.1.2",
+    "react-router": "^6.15.0",
+    "react-router-dom": "^6.15.0",
+    "redux": "^4.2.1",
+    "redux-persist": "^6.0.0"
   },
   "jest": {
     "moduleNameMapper": {
@@ -37,7 +49,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^4.3.0",
-    "file-loader": "6.2.0",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.0",
     "style-loader": "^1.2.1",
     "webpack": "^4.44.2",

@@ -1,0 +1,71 @@
+.comingsoon {
+    /* background-color: red; */
+    background-image: url('/public/images/coming-soon-background-img4.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ffffff;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1240px;
+    margin: 0px auto;
+}
+
+.coming-soon-container {
+    /* background-color: blue; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    Width: 448px;
+    Height: 260px;
+    font-family: Inter;
+    margin-left: 200px;
+    margin-top: 200px;
+}
+
+.coming-soon-container h1 {
+    font-size: 72px;
+    font-weight: 900;
+}
+
+.coming-soon-container p:nth-child(2) {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.coming-soon-container p:nth-child(3){
+    font-size: 16px;
+    font-weight: 400;
+}
+.coming-soon-container p:nth-child(3) span{
+    font-size: 14px;
+    font-weight: 400;
+    color: #677a30;
+    padding-left: 5px;
+}
+.coming-soon-container p:nth-child(3) span:hover{
+    cursor: pointer;
+    color:#072902;
+}
+
+.coming-soon-container button {
+    all: unset;
+    font-size: 16px;
+    position: relative;
+}
+.coming-soon-container button::before{
+    content: "or";
+    font-size: 16px;
+    position: absolute;
+    top: -25px;
+    left: 12px;
+}
+.coming-soon-container button:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color:#072902;
+}

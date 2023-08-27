@@ -1,0 +1,35 @@
+.home {
+    display: flex;
+    justify-content: center;
+    /* background-color: red; */
+}
+
+.home-container {
+    width: 77.5rem;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    background-color: white;
+    padding-top: 46px;
+}
+
+.home-container-left {
+    width: 58.75rem;
+    overflow: hidden;
+    padding: 0px 30px;
+}
+
+.home-container-right {
+    display: flex;
+    flex-wrap: wrap;
+    width: 18.75rem;
+    color: #ccc;
+    font-size: 12px;
+    padding-top: 11px;
+    line-height: 16.8px;
+    border-top: 1px solid #f2f2f2;
+    border-top-width: 0.8px;
+    font-weight: 600;
+    padding-bottom: 80px;
+    /* background-color: blue; */
+}
