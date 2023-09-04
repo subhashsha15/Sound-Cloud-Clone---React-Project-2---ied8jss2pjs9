@@ -4,8 +4,14 @@ import updateSongListing from "../reducers/songListingReducer";
 import updateSignUpDetails from "../reducers/signUpDetailsReducer";
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-// store is just a plain javascript object.
-
+import {
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
+  } from 'redux-persist'
 const rootReducer = {
     songListing: updateSongListing,
     signUpDetails: updateSignUpDetails,
@@ -15,8 +21,16 @@ const persistConfig = {
     storage,
 }
 const persistedReducer = persistReducer(persistConfig,combineReducers(rootReducer) )
+
+// store is just a plain javascript object.
 const store = configureStore({
-    reducer: persistedReducer
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 const persistor = persistStore(store)

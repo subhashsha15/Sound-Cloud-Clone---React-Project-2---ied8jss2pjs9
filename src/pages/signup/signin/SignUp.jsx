@@ -9,11 +9,13 @@ import EnterPassword from '../enterpassword/EnterPassword'
 import ForgotPassword from '../forgotpassword/ForgotPassword'
 import {provider,auth} from '../../../components/firebase/Firebase'
 import { signInWithPopup } from "firebase/auth"
+import EnterUserName from "../enterusername/EnterUserName"
 const Signup = () => {
     const [signin, setSignIn] = useState({
         DisplayEmailPage: true,
         DisplayEnterPasswordPage: false,
         DisplayForgotPasswordPage: false,
+        DisplayEnterUserNamePage: false,
     });
     const { DisplayEmailPage, DisplayEnterPasswordPage, DisplayForgotPasswordPage } = signin;
 
@@ -35,16 +37,19 @@ const Signup = () => {
             DisplayEmailPage: false,
             DisplayEnterPasswordPage: true,
             DisplayForgotPasswordPage: false,
+            DisplayEnterUserNamePage: false,
         })
         localStorage.setItem('email', email);
     }
-
+    
+    const navigate = useNavigate();
     const handleSignInWithGoogle=()=>{
         signInWithPopup(auth,provider).then((data)=>{
             console.log(data.user.reloadUserInfo.displayName);
+            localStorage.setItem('UserName',data.user.reloadUserInfo.displayName);
+            navigate('/home');
         })
     }
-    const navigate = useNavigate();
     return (
         <>
             <div className="signup">
@@ -88,7 +93,8 @@ const Signup = () => {
                                     For additional info please refer to our <span>Privacy Policy</span>.
                                 </div>
                             </>
-                        ) : DisplayEnterPasswordPage == true ? (<EnterPassword setSignIn={setSignIn} />) : (<ForgotPassword setSignIn={setSignIn} />)
+                        ) : DisplayEnterPasswordPage == true ? (<EnterPassword setSignIn={setSignIn} />) : DisplayForgotPasswordPage==true?(<ForgotPassword setSignIn={setSignIn} />):
+                        (<EnterUserName setSignIn={setSignIn}/>)
                     }
                 </div>
             </div>

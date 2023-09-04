@@ -3,10 +3,35 @@ import './Songs.css'
 import PlayButton from "../playbutton/PlayButton";
 import Artist from "../artists/Artists";
 import Footer from "../footer/Footer";
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import axios from "axios";
+import { useParams } from 'react-router-dom';
 const Songs = () => {
-    const songList = useSelector((store) => store.songListing.songList);
-    console.log("songList=",songList);
+    console.log("songs re-render");
+    const { id: albumId } = useParams();
+    const [songsList, setSongsList] = useState([]);
+    const [artistsList, setArtistsList] = useState([]);
+    const [clickedSong, setClickedSong] = useState(0);
+    const headers = {
+        'projectId': 'ied8jss2pjs9',
+    };
+    useEffect(() => {
+        axios.get(`https://academics.newtonschool.co/api/v1/music/album/${albumId}`, { headers })
+            .then((response) => {
+                const data = response.data.data;
+                console.log("response=", data)
+                setSongsList(data.songs)
+                setArtistsList(data.artists)
+                console.log(data.artists)
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
+    }, []);
+
+    const handleClickOnSong = (index) => {
+        setClickedSong(index);
+    }
+
     return (
         <>
             <div className="songs">
@@ -15,7 +40,7 @@ const Songs = () => {
                         <div className="songs-container-top-left">
                             <div className="song-details">
                                 <span className="playbtn">
-                                    <PlayButton />
+                                    <PlayButton audioUrl={songsList[clickedSong]?.audio_url} />
                                 </span>
                                 <span>
                                     <div className="song-title">Top 50: All music genres</div>
@@ -30,7 +55,7 @@ const Songs = () => {
                         </div>
                         <div className="songs-container-top-right">
                             <span>Updated 1 day ago</span>
-                            <img src="https://i1.sndcdn.com/artworks-IUGymdr2RdwwZmy6-1UrjzQ-t500x500.jpg" alt="" />
+                            <img src={songsList[clickedSong]?.thumbnail} alt="" />
                         </div>
                     </div>
                     <div className="songs-container-middle">
@@ -59,193 +84,51 @@ const Songs = () => {
                                     <span>3,383</span>
                                 </div>
                             </div>
-                            <div className="songs-container-middle-left-songs">
-                                <div className="songs-container-middle-left-song">
-                                    <div className="songs-container-middle-left-songdetails">
-                                        <div className="thumbnail-img">
-                                            <img src="https://i1.sndcdn.com/artworks-IUGymdr2RdwwZmy6-1UrjzQ-t500x500.jpg" alt="" />
-                                        </div>
-                                        <div className="index">1</div>
-                                        <div className="songDetail">
-                                            <span>callmesenoreata</span>
-                                            -
-                                            <span>100 Days Of Love</span>
-                                        </div>
-                                    </div>
-                                    <div className="numberofLikes">
-                                        <img src="/public/images/playImage.svg" alt="" />
-                                        <span>898K</span>
-                                    </div>
-                                    <div className="songs-container-middle-left-song-playbtn">
-                                        <PlayButton />
-                                        <div>
-                                            <button>
-                                                <img src="/public/images/likebtn-img.svg" alt="" />
-                                            </button>
-                                            <button>
-                                                <img src="/public/images/repost-img.svg" alt="" />
-                                            </button>
-                                            <button className="share-btn">
-                                                <img src="/public/images/sharebtn-img.svg" alt="" />
-                                            </button>
-                                            <button>
-                                                <img src="/public/images/copylink-img.svg" alt="" />
-                                            </button>
-                                            <button>
-                                                <img src="/public/images/more-img.svg" alt="" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="songs-container-middle-left-song">
-                                    <div className="songs-container-middle-left-songdetails">
-                                        <div className="thumbnail-img">
-                                            <img src="https://i1.sndcdn.com/artworks-IUGymdr2RdwwZmy6-1UrjzQ-t500x500.jpg" alt="" />
-                                        </div>
-                                        <div className="index">1</div>
-                                        <div className="songDetail">
-                                            <span>callmesenoreata</span>
-                                            -
-                                            <span>100 Days Of Love</span>
-                                        </div>
-                                    </div>
-                                    <div className="numberofLikes">
-                                        <img src="/public/images/playImage.svg" alt="" />
-                                        <span>898K</span>
-                                    </div>
-                                    <div className="songs-container-middle-left-song-playbtn">
-                                        <PlayButton />
-                                        <div>
-                                            <button>
-                                                <img src="/public/images/likebtn-img.svg" alt="" />
-                                            </button>
-                                            <button>
-                                                <img src="/public/images/repost-img.svg" alt="" />
-                                            </button>
-                                            <button className="share-btn">
-                                                <img src="/public/images/sharebtn-img.svg" alt="" />
-                                            </button>
-                                            <button>
-                                                <img src="/public/images/copylink-img.svg" alt="" />
-                                            </button>
-                                            <button>
-                                                <img src="/public/images/more-img.svg" alt="" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="songs-container-middle-left-song">
-                                    <div className="songs-container-middle-left-songdetails">
-                                        <div className="thumbnail-img">
-                                            <img src="https://i1.sndcdn.com/artworks-IUGymdr2RdwwZmy6-1UrjzQ-t500x500.jpg" alt="" />
-                                        </div>
-                                        <div className="index">1</div>
-                                        <div className="songDetail">
-                                            <span>callmesenoreata</span>
-                                            -
-                                            <span>100 Days Of Love</span>
-                                        </div>
-                                    </div>
-                                    <div className="numberofLikes">
-                                        <img src="/public/images/playImage.svg" alt="" />
-                                        <span>898K</span>
-                                    </div>
-                                    <div className="songs-container-middle-left-song-playbtn">
-                                        <PlayButton />
-                                        <div>
-                                            <button>
-                                                <img src="/public/images/likebtn-img.svg" alt="" />
-                                            </button>
-                                            <button>
-                                                <img src="/public/images/repost-img.svg" alt="" />
-                                            </button>
-                                            <button className="share-btn">
-                                                <img src="/public/images/sharebtn-img.svg" alt="" />
-                                            </button>
-                                            <button>
-                                                <img src="/public/images/copylink-img.svg" alt="" />
-                                            </button>
-                                            <button>
-                                                <img src="/public/images/more-img.svg" alt="" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="songs-container-middle-left-song">
-                                    <div className="songs-container-middle-left-songdetails">
-                                        <div className="thumbnail-img">
-                                            <img src="https://i1.sndcdn.com/artworks-IUGymdr2RdwwZmy6-1UrjzQ-t500x500.jpg" alt="" />
-                                        </div>
-                                        <div className="index">1</div>
-                                        <div className="songDetail">
-                                            <span>callmesenoreata</span>
-                                            -
-                                            <span>100 Days Of Love</span>
-                                        </div>
-                                    </div>
-                                    <div className="numberofLikes">
-                                        <img src="/public/images/playImage.svg" alt="" />
-                                        <span>898K</span>
-                                    </div>
-                                    <div className="songs-container-middle-left-song-playbtn">
-                                        <PlayButton />
-                                        <div>
-                                            <button>
-                                                <img src="/public/images/likebtn-img.svg" alt="" />
-                                            </button>
-                                            <button>
-                                                <img src="/public/images/repost-img.svg" alt="" />
-                                            </button>
-                                            <button className="share-btn">
-                                                <img src="/public/images/sharebtn-img.svg" alt="" />
-                                            </button>
-                                            <button>
-                                                <img src="/public/images/copylink-img.svg" alt="" />
-                                            </button>
-                                            <button>
-                                                <img src="/public/images/more-img.svg" alt="" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="songs-container-middle-left-song">
-                                    <div className="songs-container-middle-left-songdetails">
-                                        <div className="thumbnail-img">
-                                            <img src="https://i1.sndcdn.com/artworks-IUGymdr2RdwwZmy6-1UrjzQ-t500x500.jpg" alt="" />
-                                        </div>
-                                        <div className="index">1</div>
-                                        <div className="songDetail">
-                                            <span>callmesenoreata</span>
-                                            -
-                                            <span>100 Days Of Love</span>
-                                        </div>
-                                    </div>
-                                    <div className="numberofLikes">
-                                        <img src="/public/images/playImage.svg" alt="" />
-                                        <span>898K</span>
-                                    </div>
-                                    <div className="songs-container-middle-left-song-playbtn">
-                                        <PlayButton />
-                                        <div>
-                                            <button>
-                                                <img src="/public/images/likebtn-img.svg" alt="" />
-                                            </button>
-                                            <button>
-                                                <img src="/public/images/repost-img.svg" alt="" />
-                                            </button>
-                                            <button className="share-btn">
-                                                <img src="/public/images/sharebtn-img.svg" alt="" />
-                                            </button>
-                                            <button>
-                                                <img src="/public/images/copylink-img.svg" alt="" />
-                                            </button>
-                                            <button>
-                                                <img src="/public/images/more-img.svg" alt="" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {
+                                songsList.map((songItem, index) => {
+                                    if (songItem.album == albumId) {
+                                        return (<div className="songs-container-middle-left-songs" onClick={() => handleClickOnSong(index)}>
+                                            <div className="songs-container-middle-left-song">
+                                                <div className="songs-container-middle-left-songdetails">
+                                                    <div className="thumbnail-img">
+                                                        <img src={songItem.thumbnail} alt="" />
+                                                    </div>
+                                                    <div className="index">{index + 1}</div>
+                                                    <div className="songDetail">
+                                                        <span>{songItem.title}</span>
+                                                        -
+                                                        <span>{songItem.mood}</span>
+                                                    </div>
+                                                </div>
+                                                <div className="numberofLikes">
+                                                    <img src="/public/images/playImage.svg" alt="" />
+                                                    <span>898K</span>
+                                                </div>
+                                                <div className="songs-container-middle-left-song-playbtn">
+                                                    <PlayButton audioUrl={songItem.audio_url} />
+                                                    <div>
+                                                        <button>
+                                                            <img src="/public/images/likebtn-img.svg" alt="" title="Like"/>
+                                                        </button>
+                                                        <button>
+                                                            <img src="/public/images/repost-img.svg" alt="" title="Repost"/>
+                                                        </button>
+                                                        <button className="share-btn">
+                                                            <img src="/public/images/sharebtn-img.svg" alt="" title="Share"/>
+                                                        </button>
+                                                        <button>
+                                                            <img src="/public/images/copylink-img.svg" alt="" title="Copy Link"/>
+                                                        </button>
+                                                        <button>
+                                                            <img src="/public/images/more-img.svg" alt="" title="More"/>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>)
+                                    }
+                                })
+                            }
                             <div className="songs-container-bottom">
                             </div>
                         </div>
@@ -256,11 +139,11 @@ const Songs = () => {
                                 <span>Artists featured</span>
                             </div>
                             <div className="artists-featured-items">
-                                <Artist />
-                                <Artist />
-                                <Artist />
+                                {
+                                    artistsList.map((artistItem) => (<Artist artistItem={artistItem} />))
+                                }
                             </div>
-                            <Footer />
+                            <Footer fontsize={14}/>
                         </div>
                     </div>
                 </div>

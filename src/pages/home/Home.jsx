@@ -4,21 +4,15 @@ import Slide from "../../components/slider/Slider";
 import SongCard from "../../components/songcard/SongCard";
 import axios from 'axios';
 import Loader from "../../components/loader/Loader";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector} from "react-redux";
 const Home = () => {
-    const songsList = [];
+    console.log("home re-render");
     const [songData, setSongData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [flag, setFlag] = useState(false);
-    const dispatch = useDispatch();
+
     const headers = {
         'projectId': 'ied8jss2pjs9',
     };
-
-    const songListingAction = {
-        type: "SONGS_LISTING",
-        payload: songsList,
-    }
 
     useEffect(() => {
         axios.get('https://academics.newtonschool.co/api/v1/music/album', { headers })
@@ -26,22 +20,11 @@ const Home = () => {
                 const data = response.data.data;
                 setSongData(data);
                 setLoading(false);
-                const songs = data.map((data) => data.songs);
-                songs.forEach(element => {
-                    element.forEach(element => songsList.push(element.mood));
-                });
-                console.log(songsList);
-                
             })
             .catch((error) => {
                 console.log(error.message);
             });
-            console.log("home line 38");
-            dispatch(songListingAction);
-            setFlag(true);
-    }, [flag]);
-    console.log(songData);
-    console.log(songsList);
+    }, []);
   
     return (
         <>

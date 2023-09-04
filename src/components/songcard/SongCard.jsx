@@ -11,11 +11,11 @@ import { useNavigate } from "react-router";
 const SongCard = ({ items }) => {
     // console.log("props",props);
     // console.log("items",items);
-    const navigate=useNavigate();
-    const handleOnCardClick=()=>{
-       const CardId=items._id;
-       navigate(`/songs/${CardId}`);
-       console.log(CardId);
+    const navigate = useNavigate();
+    const handleOnCardClick = () => {
+        const CardId = items.album?items.album:items._id;
+        navigate(`/songs/${CardId}`);
+        console.log(CardId);
     }
 
     return (
@@ -25,18 +25,17 @@ const SongCard = ({ items }) => {
                     <CardMedia
                         className="media"
                         onClick={handleOnCardClick}
-                        image={items.image}
+                        image={items.image || items.thumbnail}
                     />
                     <CardContent>
                         <Typography gutterBottom variant="none" color="#333">
                             {items.title}
                         </Typography>
                         <Typography variant="body2">
-                            {items.appType}
+                            { items.mood}
                         </Typography>
                     </CardContent>
                     <PlayButton />
-                    {/* <PlayButton songURL={items}/> */}
                 </CardActionArea>
             </Card>
         </>

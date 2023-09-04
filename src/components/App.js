@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createContext, useState ,useRef} from 'react'
 import '../styles/App.css';
 import Navbar from './navbar/Navbar';
 import Home from '../pages/home/Home';
@@ -8,19 +8,29 @@ import { createBrowserRouter, Outlet, RouterProvider, } from "react-router-dom";
 import Songs from './songs/Songs';
 import LandingPage from '../pages/landingpage/LandingPage';
 import { Provider } from 'react-redux';
-import store,{persistor} from "../redux/store/store"
-import { PersistGate } from 'redux-persist/integration/react'
+// import store,{persistor} from "../redux/store/store"
+// import { PersistGate } from 'redux-persist/integration/react'
 import ComingSoon from '../pages/comingsoon/ComingSoon';
+import SearchResult from '../pages/searchresultspage/SearchResult';
+import Library from '../pages/library/Library';
+const ArtistsContext = createContext();
 const App = () => {
+  const [followingArtists, setFollowingArtists] = useState([]);
+  console.log("followingArtists=", followingArtists);
+  // const followingArtistsRef = useRef([]);
+  // console.log("followingArtistsREF=", followingArtistsRef);
   const Layout = () => {
     return (
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <div id="main">
-            <Outlet />
-          </div>
-        </PersistGate>
-      </Provider>
+      // <Provider store={store}>
+      //   <PersistGate loading={null} persistor={persistor}>
+      <ArtistsContext.Provider value={{ followingArtists, setFollowingArtists }}>
+      {/* // <ArtistsContext.Provider value={{followingArtistsRef }}> */}
+        <div id="main">
+          <Outlet />
+        </div>
+      </ArtistsContext.Provider>
+      //   </PersistGate>
+      // </Provider>
     )
   }
 
@@ -62,7 +72,23 @@ const App = () => {
         },
         {
           path: "/comingsoon",
-          element: <ComingSoon/>
+          element: <ComingSoon />
+        },
+        {
+          path: "/searchresult/:searchvalue",
+          element: (<>
+            <Navbar />
+            <SearchResult />
+          </>
+          )
+        },
+        {
+          path: "/library/*",
+          element: (<>
+            <Navbar />
+            <Library />
+          </>
+          )
         },
       ]
     },
@@ -75,3 +101,4 @@ const App = () => {
 }
 
 export default App;
+export { ArtistsContext };

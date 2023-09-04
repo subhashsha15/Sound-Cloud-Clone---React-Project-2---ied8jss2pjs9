@@ -6,14 +6,16 @@ import notification from '../../../public/images/notification-icon.svg'
 import more from '../../../public/images/more-icon.svg'
 import downarrow from '../../../public/images/down-arrow.svg'
 import './Navbar.css'
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink,useNavigate} from 'react-router-dom';
 import Message from '../messagesAndnotifications/Message';
 import axios from 'axios';
 const Navbar = () => {
     const [openMoreOtions, setOpenMoreOptions] = useState(false);
     const [openMessageModal, setOpenMessageModal] = useState(false);
     const [openNotificationModal, setOpenNotificationModal] = useState(false);
-
+    const [searchResults, setSearchResults] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
+    const username=localStorage.getItem('UserName');
     const handleMoreBtn = () => {
         setOpenMoreOptions(prev => !prev);
         setOpenMessageModal(false);
@@ -57,12 +59,15 @@ const Navbar = () => {
     const headers = {
         'projectId': 'ied8jss2pjs9',
     };
-    const handleSearch = (event) => {
-        const searchValue=event.target.value;
-        console.log(searchValue)
+    const navigate=useNavigate();
+    const handleSearch = () => {
+        // const searchValue=event.target.value;
+        // console.log(searchValue)
         axios.get(`https://academics.newtonschool.co/api/v1/music/song?filter={"mood":"${searchValue}"}`, { headers })
             .then((response) => {
                 console.log("response", response.data.data);
+                localStorage.setItem('SearchResults',JSON.stringify(response.data.data));
+                navigate(`/searchresult/${searchValue}`)
             })
             .catch((error) => {
                 console.log(error.message);
@@ -82,14 +87,14 @@ const Navbar = () => {
                                     <li>Home</li>
                                 </Link>
                                 <li>Feed</li>
-                                <Link to="/songs">
+                                <Link to="/library">
                                     <li>Library</li>
                                 </Link>
                             </ul>
                         </div>
                     </div>
                     <div className="navbar-middle">
-                        <input type="text" placeholder='Search' onChange={handleSearch}/>
+                        <input type="text" placeholder='Search' onChange={(e)=>setSearchValue(e.target.value)}/>
                         <div className="search-icon" onClick={handleSearch}>
                             <SearchIcon />
                         </div>
@@ -101,7 +106,7 @@ const Navbar = () => {
                             <button>Upload</button>
                         </Link>
                         <div className="navbar-profile">
-                            <span>N</span>
+                            <span>{username?.charAt(0).toUpperCase()}</span>
                             <img src={downarrow} alt="" />
                         </div>
                         <img src={notification} alt="" onClick={handleNotificationModal} />

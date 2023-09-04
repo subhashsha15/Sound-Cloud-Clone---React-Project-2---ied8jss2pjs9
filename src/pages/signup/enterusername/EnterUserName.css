@@ -1,0 +1,44 @@
+.username-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-family: Lucida Grande,Helvetica,Arial,sans-serif;
+    line-height: 1.462;
+}
+
+.username-container h1 {
+    font-size: 32px;
+    text-align: center;
+}
+
+.user-name,
+.user-age,
+.user-gender {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.user-name input,.user-age input,.user-gender select{
+    border-radius: 5px;
+    font-size: 18px;
+    line-height: 24px;
+    padding: 7px 8px;
+    border: 1px solid #ccc;
+    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    font-weight: 100;
+    background: #fff;
+    color: #333;
+    outline: none;
+}
+.user-name label,.user-age label,.user-gender label{
+    font-size: 14px;
+}
+.username-container p {
+    font-family: Lucida Grande,Helvetica,Arial,sans-serif;
+    font-size: 12px;
+    line-height: 1.462;
+}
+
+.username-container p span {
+    color: #044dd2;
+}
