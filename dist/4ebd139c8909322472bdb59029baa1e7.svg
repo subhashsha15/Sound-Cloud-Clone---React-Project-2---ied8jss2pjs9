@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="8px" height="5px" viewBox="0 0 8 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->
+    <title>Dropdown</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Top-Bar" sketch:type="MSArtboardGroup" transform="translate(-2066.000000, -545.000000)" fill="#FFFFFF">
+            <path d="M2067,545.022746 L2066,546.022746 L2069.95476,549.977511 L2073.97751,545.954765 L2072.97751,544.954765 L2069.95476,547.977511 L2067,545.022746 Z" id="Dropdown" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

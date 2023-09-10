@@ -1,13 +1,11 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import './SignUp.css'
 import cross from '../../../../public/images/cross-image.svg'
-import facebook from '../../../../public/images/facebook.png'
 import google from '../../../../public/images/google.svg'
-import apple from '../../../../public/images/apple.svg'
 import { useNavigate } from "react-router"
 import EnterPassword from '../enterpassword/EnterPassword'
 import ForgotPassword from '../forgotpassword/ForgotPassword'
-import {provider,auth} from '../../../components/firebase/Firebase'
+import { provider, auth } from '../../../components/firebase/Firebase'
 import { signInWithPopup } from "firebase/auth"
 import EnterUserName from "../enterusername/EnterUserName"
 const Signup = () => {
@@ -20,8 +18,9 @@ const Signup = () => {
     const { DisplayEmailPage, DisplayEnterPasswordPage, DisplayForgotPasswordPage } = signin;
 
     const [email, setEmail] = useState("");
+    const [isCloseBtnClicked, setIsCloseBtnClicked] = useState(false);
     const [emailError, setEmailError] = useState("");
-    const [isEmailRegistered, setisEmailRegistered] = useState(false);
+
     const handleEmailOnChange = (event) => {
         setEmail(event.target.value);
         setEmailError("")
@@ -41,35 +40,38 @@ const Signup = () => {
         })
         localStorage.setItem('email', email);
     }
-    
+
     const navigate = useNavigate();
-    const handleSignInWithGoogle=()=>{
-        signInWithPopup(auth,provider).then((data)=>{
-            console.log(data.user.reloadUserInfo.displayName);
-            localStorage.setItem('UserName',data.user.reloadUserInfo.displayName);
+    const handleSignInWithGoogle = () => {
+        signInWithPopup(auth, provider).then((data) => {
+            // console.log("google data=",data);
+            localStorage.setItem('UserName', data.user.reloadUserInfo.displayName);
+            localStorage.setItem('email', data.user.email);
+            // localStorage.setItem('Token',data.user.accessToken);
+            localStorage.setItem('password', data.user.email);
             navigate('/home');
         })
     }
+
+    useEffect(() => {
+        if (isCloseBtnClicked) {
+            setTimeout(() => {
+                navigate("/");
+            }, 600);
+        }
+    }, [isCloseBtnClicked])
     return (
         <>
             <div className="signup">
-                <div className="signup-container">
-                    <img className="close-signupModel" src={cross} alt="cross-img" onClick={() => navigate("/")} />
+                <div className={isCloseBtnClicked ? "signup-container close-signupModel-top" : "signup-container"}>
+                    <img className="close-signupModel" src={cross} alt="cross-img" onClick={() => setIsCloseBtnClicked(true)} />
                     {
                         DisplayEmailPage == true ? (
                             <>
                                 <div className="signup-container-top">
-                                    <button className="facebook-button">
-                                        <img src={facebook} alt="" />
-                                        <span>Continue with Facebook</span>
-                                    </button>
                                     <button className="google-button" onClick={handleSignInWithGoogle}>
                                         <img src={google} alt="" />
                                         <span>Continue with Google</span>
-                                    </button>
-                                    <button className="apple-button">
-                                        <img src={apple} alt="" />
-                                        <span>Continue with Apple</span>
                                     </button>
                                 </div>
                                 <div className="separator">
@@ -79,7 +81,7 @@ const Signup = () => {
                                     <input type="text" placeholder="Your email address or profile URL"
                                         onChange={handleEmailOnChange}
                                         value={email}
-                                        className={emailError == false ? "error" : ""}
+                                        className={emailError ? "error" : ""}
                                     />
                                     {emailError && (<div className="error">{emailError}</div>)}
                                     <button className="continue-button"
@@ -93,8 +95,8 @@ const Signup = () => {
                                     For additional info please refer to our <span>Privacy Policy</span>.
                                 </div>
                             </>
-                        ) : DisplayEnterPasswordPage == true ? (<EnterPassword setSignIn={setSignIn} />) : DisplayForgotPasswordPage==true?(<ForgotPassword setSignIn={setSignIn} />):
-                        (<EnterUserName setSignIn={setSignIn}/>)
+                        ) : DisplayEnterPasswordPage == true ? (<EnterPassword setSignIn={setSignIn} />) : DisplayForgotPasswordPage == true ? (<ForgotPassword setSignIn={setSignIn} />) :
+                            (<EnterUserName setSignIn={setSignIn} />)
                     }
                 </div>
             </div>

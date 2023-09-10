@@ -30,12 +30,15 @@
     border-bottom-color: black;
 }
 
-.active {
+.library-container-top .active {
     color: #f50;
     border-bottom: 2px solid transparent;
     border-bottom-color: #f50 !important;
 }
 
 .active:hover {
-    cursor:default !important;
+    cursor: default !important;
 }
+
+/* ************************** */
+/* Media Queries */

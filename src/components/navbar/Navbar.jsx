@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import SearchIcon from '@material-ui/icons/Search';
 import logo from '../../../public/images/logo.svg'
 import message from '../../../public/images/message-icon.svg'
@@ -6,30 +6,48 @@ import notification from '../../../public/images/notification-icon.svg'
 import more from '../../../public/images/more-icon.svg'
 import downarrow from '../../../public/images/down-arrow.svg'
 import './Navbar.css'
-import { Link, NavLink,useNavigate} from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import Message from '../messagesAndnotifications/Message';
 import axios from 'axios';
+import { headers } from '../../miscellaneous/miscellaneous';
+import CloseIcon from '@material-ui/icons/Close';
+import MenuIcon from '@material-ui/icons/Menu';
 const Navbar = () => {
     const [openMoreOtions, setOpenMoreOptions] = useState(false);
     const [openMessageModal, setOpenMessageModal] = useState(false);
     const [openNotificationModal, setOpenNotificationModal] = useState(false);
-    const [searchResults, setSearchResults] = useState([]);
-    const [searchValue, setSearchValue] = useState('');
-    const username=localStorage.getItem('UserName');
+    const [openProfileModal, setOpenProfileModal] = useState(false);
+    const [isMenuIconOpen, setIsMenuIconOpen] = useState(false);
+    const searchValueRef = useRef(null);
+    const username = localStorage.getItem('UserName');
     const handleMoreBtn = () => {
         setOpenMoreOptions(prev => !prev);
         setOpenMessageModal(false);
         setOpenNotificationModal(false);
+        setOpenProfileModal(false);
     }
     const handleMessageModal = () => {
         setOpenMessageModal(prev => !prev);
         setOpenMoreOptions(false);
         setOpenNotificationModal(false);
+        setOpenProfileModal(false);
     }
     const handleNotificationModal = () => {
         setOpenNotificationModal(prev => !prev);
         setOpenMoreOptions(false);
         setOpenMessageModal(false);
+        setOpenProfileModal(false);
+    }
+    const handleProfile = () => {
+        setOpenProfileModal(prev => !prev);
+        setOpenNotificationModal(false);
+        setOpenMoreOptions(false);
+        setOpenMessageModal(false);
+    }
+    const handleLogout = () => {
+        // localStorage.clear();
+        localStorage.removeItem('password');
+        navigate('/')
     }
     useEffect(() => {
         const handleClick = () => {
@@ -42,10 +60,13 @@ const Navbar = () => {
             if (openNotificationModal) {
                 setOpenNotificationModal(false);
             }
+            if (openProfileModal) {
+                setOpenProfileModal(false);
+            }
         };
 
         // Add event listener when the component mounts
-        if (openMoreOtions || openMessageModal || openNotificationModal) {
+        if (openMoreOtions || openMessageModal || openNotificationModal || openProfileModal) {
             window.addEventListener('click', handleClick);
         }
 
@@ -53,25 +74,35 @@ const Navbar = () => {
         return () => {
             window.removeEventListener('click', handleClick);
         };
-    }, [openMoreOtions, openMessageModal, openNotificationModal]);
+    }, [openMoreOtions, openMessageModal, openNotificationModal, openProfileModal]);
 
-
-    const headers = {
-        'projectId': 'ied8jss2pjs9',
-    };
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const handleSearch = () => {
-        // const searchValue=event.target.value;
-        // console.log(searchValue)
+        let searchValue = "";
+        let totalresults = "";
+        if (searchValueRef.current) {
+            searchValue = searchValueRef.current.value;
+        }
+        navigate(`/searchresult?query=${searchValue}&totalresults=0`);
         axios.get(`https://academics.newtonschool.co/api/v1/music/song?filter={"mood":"${searchValue}"}`, { headers })
             .then((response) => {
-                console.log("response", response.data.data);
-                localStorage.setItem('SearchResults',JSON.stringify(response.data.data));
-                navigate(`/searchresult/${searchValue}`)
+                const data = response.data.data;
+                totalresults = data.length,
+                    navigate(`/searchresult?query=${searchValue}&totalresults=${totalresults}`);
             })
             .catch((error) => {
                 console.log(error.message);
             });
+    }
+
+    const navLinkStyles = ({ isActive }) => {
+        return {
+            backgroundColor: isActive ? "#111" : "",
+            textDecoration: isActive ? "none" : "none",
+        };
+    };
+    const handleNavbarMenuIcon = () => {
+        setIsMenuIconOpen(prev => !prev);
     }
     return (
         <>
@@ -83,32 +114,45 @@ const Navbar = () => {
                         </div>
                         <div className="navbar-left-items">
                             <ul>
-                                <Link to="/home">
+                                <NavLink to="/home" style={navLinkStyles}>
                                     <li>Home</li>
-                                </Link>
-                                <li>Feed</li>
-                                <Link to="/library">
+                                </NavLink>
+                                <NavLink to="/comingsoon" style={navLinkStyles}>
+                                    <li>Feed</li>
+                                </NavLink>
+                                <NavLink to="/library" style={navLinkStyles}>
                                     <li>Library</li>
-                                </Link>
+                                </NavLink>
                             </ul>
                         </div>
                     </div>
                     <div className="navbar-middle">
-                        <input type="text" placeholder='Search' onChange={(e)=>setSearchValue(e.target.value)}/>
+                        <input type="text" placeholder='Search' ref={searchValueRef} />
                         <div className="search-icon" onClick={handleSearch}>
                             <SearchIcon />
                         </div>
                     </div>
                     <div className="navbar-right">
-                        <button>Try Next Pro</button>
-                        <button>For Artists</button>
-                        <Link to="/signup">
-                            <button>Upload</button>
-                        </Link>
-                        <div className="navbar-profile">
+                        <NavLink to="/comingsoon" style={navLinkStyles}>
+                            <button className='special-btn'>Try Next Pro</button>
+                        </NavLink>
+                        <NavLink to="/comingsoon" style={navLinkStyles}>
+                            <button >For Artists</button>
+                        </NavLink>
+                        <NavLink to="/comingsoon">
+                            <button className='special-btn'>Upload</button>
+                        </NavLink>
+                        <div className="navbar-profile" onClick={handleProfile}>
                             <span>{username?.charAt(0).toUpperCase()}</span>
                             <img src={downarrow} alt="" />
                         </div>
+                        {openProfileModal && (<>
+                            <div className="profile-modal">
+                                <ul onClick={handleLogout}>
+                                    <li>Logout</li>
+                                </ul>
+                            </div>
+                        </>)}
                         <img src={notification} alt="" onClick={handleNotificationModal} />
                         {openNotificationModal && (
                             <div className='notification-modal'>
@@ -137,10 +181,32 @@ const Navbar = () => {
                                     <li>Keyboard shortcuts</li>
                                     <li>Subscription</li>
                                     <li>Settings</li>
-                                    <li>Sign out</li>
                                 </ul>
                             </div>
                         </>)}
+                    <div className="navbar-icon" onClick={handleNavbarMenuIcon}>
+                        {isMenuIconOpen ? <CloseIcon /> : <MenuIcon color="inherit" />}
+                    </div>
+                    {isMenuIconOpen && (<ul class="navbar-menu_list">
+                        <Link to="/home" className="link">
+                            <li>Home</li>
+                        </Link>
+                        <Link to="/signup" className="link">
+                            <li>Feed</li>
+                        </Link>
+                        <Link to="/library" className="link">
+                            <li>Library</li>
+                        </Link>
+                        <Link to="/comingsoon" className="link">
+                            <li>Try Next Pro</li>
+                        </Link>
+                        <Link to="/comingsoon" className="link">
+                            <li>For Artists</li>
+                        </Link>
+                        <Link to="/comingsoon" className="link">
+                            <li>Upload</li>
+                        </Link>
+                    </ul>)}
                     </div>
                 </div>
             </div>

@@ -4,12 +4,14 @@
 
 .signup-container {
     position: relative;
-    height: 550px;
+    /* height: 550px; */
+    height:fit-content;
     width: 450px;
     background-color: #fff;
     margin: 0px auto;
     margin-top: 76px;
     padding: 25px;
+    padding-bottom: 100px;
     animation: slideFromTopToMiddle 0.8s ease-in-out forwards;
 }
 
@@ -20,6 +22,10 @@
     width: 15px;
     height: 15px;
     cursor: pointer;
+}
+
+.close-signupModel-top {
+    animation: slideFromMiddleToTop 0.8s ease-in-out forwards;
 }
 
 .signup-container-top {
@@ -50,28 +56,15 @@
     width: 15px;
 }
 
-.facebook-button {
-    background-color: #3578e5;
-    border-color: #3578e5;
-    color: #fff;
-}
-
 .google-button {
     background-color: #fff;
     border-color: #ccc;
     color: #222;
 }
 
-.apple-button {
-    background-color: #000;
-    border-color: #000;
-    color: #fff;
-}
 
-.apple-button img {
-    height: 27px;
-    margin-right: -6px;
-    width: 25px;
+.signup-container-middle span:hover {
+    cursor: default;
 }
 
 .continue-button {
@@ -153,16 +146,39 @@
 
 @keyframes slideFromTopToMiddle {
     0% {
-      transform: translateY(-100%);
+        transform: translateY(-100%);
     }
+
     100% {
-      transform: translateY(0);
+        transform: translateY(0);
     }
-  }
+}
+
+@keyframes slideFromMiddleToTop {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-115%);
+    }
+}
+
 /* error css*/
-.error,.signup-container-middle input {
+.error input,
+.signup-container-middle input.error {
     color: #d61348;
     border-color: #d61348;
     margin-bottom: 0.8em;
     font-size: 13px;
+}
+
+/* Media Queries */
+@media screen and (min-width: 320px) and (max-width: 766px) {
+    .signup-container {
+        width: 100%;
+    }
+    .signup {
+        padding: 15px;
+    }
 }

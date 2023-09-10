@@ -7,7 +7,7 @@
     flex-direction: column;
     justify-content: center;
     margin: 0px auto;
-    width: 1240px;
+    max-width: 1240px;
 }
 
 .landingpage-container-top {
@@ -51,6 +51,10 @@
     line-height: 24px;
     color: #fff;
     font-size: 14px;
+}
+
+.landing-uploadbtn:hover {
+    cursor: pointer;
 }
 
 .signin-btn {
@@ -188,7 +192,7 @@
     color: #333;
 }
 
-.landingpage-container-top-body3 .songs {
+.landingpage-container-top-body3-songs {
     display: flex;
     gap: 55px;
     flex-wrap: wrap;
@@ -212,7 +216,6 @@
 /* ****************************************** */
 .landingpage-container-middle {
     display: flex;
-    padding: 0px 70px;
     gap: 45px;
     margin-top: 60px;
     padding: 0 70px;
@@ -348,7 +351,6 @@
     min-width: 48px;
 }
 
-
 .landingpage-container-bottom-bodyBottom {
     line-height: 20px;
     padding: 15px 30px;
@@ -364,3 +366,189 @@
 .landingpage-container-bottom-bodyBottom span:nth-child(3) {
     color: #333;
 }
+
+.nav-icon {
+    display: none;
+    color: white;
+    position: relative;
+}
+
+.menu_list {
+    display: none;
+    position: absolute;
+    right: 35px;
+    top: 65px;
+    background-color: #ccc;
+    width: 150px;
+    height: auto;
+    /* display: flex; */
+    flex-direction: column;
+    padding: 15px;
+    gap: 18px;
+}
+
+.menu_list li {
+    list-style: none;
+    border-bottom: 1px solid #666;
+    padding-bottom: 2px;
+    color: #333;
+}
+
+.menu_list li:hover {
+    color: #f50;
+    cursor: pointer;
+}
+
+/* Media Queries */
+@media screen and (min-width: 320px) and (max-width: 766px) {
+
+    .landingpage-container-top-body1-header-right {
+        display: none;
+    }
+
+    .nav-icon {
+        display: block;
+    }
+
+    .menu_list {
+        display: flex;
+    }
+
+    .landingpage-container-top-body1-content h2 {
+        font-size: 1.2rem;
+    }
+
+    .landingpage-container-top-body1-content p {
+        font-size: 0.8rem;
+    }
+
+    .landingpage-container-top-body1-content button {
+        font-size: 0.8rem;
+        min-width: 80px;
+        height: 36px;
+        line-height: 26px;
+    }
+
+    .landingpage-container-top-body2 {
+        flex-direction: column;
+    }
+
+    .landingpage-container-top-body2-left {
+        padding: 0px 80px;
+    }
+
+    .landingpage-container-top-body2-left input {
+        width: 350px;
+        font-size: 12px;
+    }
+
+    .landingpage-container-top-body2-left-search-icon {
+        right: 80px;
+    }
+
+    .landingpage-container-top-body3-songs {
+        justify-content: center;
+        gap: 80px;
+    }
+
+    .landingpage-container-middle {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        margin-bottom: 30px;
+        width: 100%;
+    }
+
+    .landingpage-container-middle-left img {
+        width: 100%;
+    }
+
+    .landingpage-container-bottom-bodyTop {
+        padding: 0 5px;
+        align-items: end;
+    }
+
+    .landingpage-container-bottom-bodyTop h2 {
+        font-size: 3vw;
+    }
+
+    .landingpage-container-bottom-bodyTop p {
+        width: 21%;
+        font-size: 2vw;
+        margin: 11px 0 16px;
+    }
+
+    .landingpage-container-bottom-bodyTop button {
+        font-size: 2vw;
+        width: auto;
+        height: auto;
+        line-height: 0px;
+    }
+
+    .landingpage-container-bottom-bodyMiddle {
+        text-align: center;
+    }
+}
+
+
+@media screen and (min-width: 767px)and (max-width: 1023px) {
+    .landingpage-container-top-body2 {
+        flex-direction: column;
+    }
+
+    .landingpage-container-top-body3-songs {
+        justify-content: center;
+        gap: 80px;
+    }
+
+    .landingpage-container-middle {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        margin-bottom: 30px;
+        width: 100%;
+    }
+
+    .landingpage-container-bottom-bodyTop {
+        padding: 0 20px;
+    }
+
+    .landingpage-container-bottom-bodyTop h2 {
+        font-size: 3vw;
+    }
+
+    .landingpage-container-bottom-bodyTop p {
+        width: 21%;
+        font-size: 2vw;
+    }
+
+    .landingpage-container-bottom-bodyTop button {
+        font-size: 2vw;
+    }
+}
+
+@media screen and (min-width: 1024px)and (max-width: 1439px) {
+
+    .landingpage-container-top-body3-songs {
+        justify-content: center;
+    }
+
+    .landingpage-container-middle {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        margin-bottom: 30px;
+    }
+}
+
+
+
+/* ----------------------------------------------------------------------------------- */
+/* @media screen and (min-width: 320px) and (max-width: 766px) {}
+
+@media screen and (min-width: 767px)and (max-width: 1023px) {}
+
+@media screen and (min-width: 1024px)and (max-width: 1439px) {} */

@@ -45,6 +45,10 @@
     background-color: rgba(0, 0, 0, .8);
     margin-bottom: 5px;
     font-family: Interstate, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 22rem;
 }
 
 .song-genre {
@@ -54,7 +58,7 @@
     color: #ccc;
     background-color: rgba(0, 0, 0, .8);
     font-weight: 100;
-    width: 108px;
+    width: fit-content;
     font-family: Interstate, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
 }
 
@@ -64,7 +68,6 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, .8);
-    /* color: #ccc; */
     color: #fff;
     height: 110px;
     width: 110px;
@@ -104,8 +107,8 @@
 }
 
 .songs-container-top-right img {
-    height: 340px;
-    width: 340px;
+    height: 21.25rem;
+    width: 21.25rem;
 }
 
 /* middle-part css */
@@ -116,7 +119,6 @@
 
 .songs-container-middle-left {
     width: 850px;
-    /* background-color: aquamarine; */
     padding: 15px 30px;
     border-right: 1px solid #f2f2f2;
 }
@@ -170,6 +172,11 @@
     outline: rgb(255, 0, 0) solid !important;
 }
 
+.addtoPlaylistBtnClicked {
+    color: #f50 !important;
+    border-color: #f50 !important;
+}
+
 .songs-container-middle-left-topIcons-likes {
     display: flex;
     justify-content: center;
@@ -187,10 +194,10 @@
     flex-direction: column;
     justify-content: space-between;
 }
-.songs-container-middle-left-songs:hover{
+
+.songs-container-middle-left-songs:hover {
     cursor: pointer;
 }
-
 
 .songs-container-middle-left-songdetails {
     display: flex;
@@ -226,7 +233,6 @@
 
 .songs-container-middle-left-song-playbtn .playbutton {
     position: absolute;
-    /* opacity: 1; */
     left: 25px;
     top: 24px;
     height: 0px;
@@ -235,19 +241,19 @@
 }
 
 .songs-container-middle-left-song-playbtn {
-    /* z-index: 1; */
-    /* opacity: 0; */
     display: none;
-    /* display: flex; */
     justify-content: space-between;
     align-items: center;
-    /* background-color: #f2f2f2; */
-    /* background-color: red; */
 }
 
 .songs-container-middle-left-song-playbtn div {
     display: flex;
     gap: 5px;
+}
+
+.likedbtn-active {
+    color: #f50 !important;
+    border-color: #f50 !important;
 }
 
 .songs-container-middle-left-song-playbtn div button {
@@ -262,9 +268,11 @@
     height: 22px;
     min-width: 25px;
 }
-.songs-container-middle-left-song-playbtn div button img:hover{
+
+.songs-container-middle-left-song-playbtn div button img:hover {
     cursor: pointer;
 }
+
 .songs-container-middle-left-song-playbtn div button:hover {
     color: #333;
     outline: 0;
@@ -301,6 +309,7 @@
     text-overflow: ellipsis;
     word-break: normal;
     font-family: Interstate, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
+    max-width: 21rem;
 }
 
 .songDetail span:nth-child(1) {
@@ -336,14 +345,16 @@
     flex-direction: column;
     max-width: 375px;
 }
-.songs-container-middle-right p{
+
+.songs-container-middle-right p {
     margin: 0 0 15px;
-    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    font-family: Interstate, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
     font-weight: 100;
     color: #333;
     font-size: 12px;
 }
-.artists-featured-heading{
+
+.artists-featured-heading {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -351,14 +362,12 @@
     color: #999;
     border-bottom: 1px solid #f2f2f2;
 }
-.artists-featured-heading span{
-    font-size:14px;
-    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+
+.artists-featured-heading span {
+    font-size: 14px;
+    font-family: Interstate, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
 }
-/* .artists-featured-items{
-    word-wrap: break-word;
-    overflow: hidden;
-} */
+
 /* bottom-part css */
 .songs-container-bottom {
     display: flex;
@@ -381,4 +390,117 @@
     left: 0;
     top: -9px;
     background: url('/public/images/bottom-footer-img.png') 50% no-repeat;
+}
+
+.artists-featured-items {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* **************************************************** */
+/* Media Queries */
+@media screen and (min-width: 320px) and (max-width: 766px) {
+    .songs-container {
+        width: 100%;
+    }
+
+    .songs-container-top {
+        width: 100%;
+        flex-direction: column;
+        gap: 40px;
+        position: relative;
+    }
+
+    .tracks {
+        position: absolute;
+        left: 16px;
+        bottom: 20px;
+        height: 85px;
+        width: 85px;
+    }
+
+    .songs-container-top-right img {
+        height: 15rem;
+        width: 15rem;
+    }
+
+    .song-title {
+        max-width: 15rem;
+    }
+
+    .songs-container-middle {
+        flex-direction: column;
+    }
+
+    .songs-container-middle-left,
+    .songs-container-middle-right,
+    .artists-featured-items {
+        width: 100%;
+    }
+
+    .songs-container-middle-left-topIcons-buttons button:nth-child(2),
+    .songs-container-middle-left-topIcons-buttons button:nth-child(3) {
+        display: none;
+    }
+
+    .numberofLikes {
+        margin-left: 1rem;
+    }
+
+    .songDetail {
+        max-width: 12rem;
+    }
+
+    .songs-container-middle-left-song-playbtn>div button:nth-child(2),
+    .songs-container-middle-left-song-playbtn>div button:nth-child(3),
+    .songs-container-middle-left-song-playbtn>div button:nth-child(4),
+    .songs-container-middle-left-song-playbtn>div button:nth-child(5) {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 767px)and (max-width: 1023px) {
+    .songs-container {
+        width: 100%;
+    }
+
+    .songs-container-top-right {
+        gap: 10px;
+        margin-left: 10px;
+    }
+
+    .song-title {
+        max-width: 16rem;
+    }
+
+    .songs-container-top-right img {
+        height: 12rem;
+        width: 12rem;
+    }
+
+    .songs-container-middle {
+        flex-direction: column;
+    }
+
+    .songs-container-middle-left,
+    .songs-container-middle-right,
+    .artists-featured-items {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 1024px)and (max-width: 1439px) {
+    .songs-container {
+        width: 100%;
+    }
+
+    .songs-container-middle {
+        flex-direction: column;
+    }
+
+    .songs-container-middle-left,
+    .songs-container-middle-right,
+    .artists-featured-items {
+        width: 100%;
+    }
 }

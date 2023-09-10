@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import './EnteruserName.css';
 import axios from 'axios';
-import { useNavigate } from 'react-router';
+import {headers} from '../../../miscellaneous/miscellaneous'
 const EnterUserName = (props) => {
     const [userName, setUserName] = useState('');
     const [userAge, setUserAge] = useState('');
     const [userGender, setUserGender] = useState('');
-    const navigate=useNavigate();
-    const headers = {
-        'projectId': 'ied8jss2pjs9',
-    };
+    const [loading,setLoading]=useState(false);
+    
     const email = localStorage.getItem('email');
     const password = localStorage.getItem('password');
     const data={
@@ -19,16 +17,18 @@ const EnterUserName = (props) => {
         appType: 'music',
     }
     const handleSignIn=()=>{
+        setLoading(true);
+        localStorage.setItem('UserName',userName)
         axios.post('https://academics.newtonschool.co/api/v1/user/signup',data,{ headers })
         .then((response) => {
-            console.log("sign-response",response);
-            // props.setSignIn({
-            //     DisplayEmailPage: false,
-            //     DisplayEnterPasswordPage: true,
-            //     DisplayForgotPasswordPage: false,
-            //     DisplayEnterUserNamePage: false,
-            // })
-            navigate('/home');
+            setLoading(false);
+            localStorage.setItem('user',"oldUser");
+            props.setSignIn({
+                DisplayEmailPage: false,
+                DisplayEnterPasswordPage: true,
+                DisplayForgotPasswordPage: false,
+                DisplayEnterUserNamePage: false,
+            })
         })
         .catch((error) => {
             console.log(error.message);
@@ -57,7 +57,7 @@ const EnterUserName = (props) => {
                         <option value="Prefer not to say">Prefer not to say</option>
                     </select>
                 </div>
-                <button className='continue-button btn' onClick={handleSignIn}>Continue</button>
+                <button className='continue-button btn' onClick={handleSignIn}>{loading?"Continuing...":"Continue"}</button>
                 <p>By signing up I accept the <span>Terms of Use</span>. I have read and understood the <span>Privacy Policy</span> and <span>Cookies Policy</span>.</p>
             </div>
         </>

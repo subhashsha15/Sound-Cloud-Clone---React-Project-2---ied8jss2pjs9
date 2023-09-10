@@ -5,17 +5,13 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import './SongCard.css'
-
 import PlayButton from "../playbutton/PlayButton";
 import { useNavigate } from "react-router";
-const SongCard = ({ items }) => {
-    // console.log("props",props);
-    // console.log("items",items);
+const SongCard = ({ items ,singlesong,toPath}) => {
     const navigate = useNavigate();
     const handleOnCardClick = () => {
         const CardId = items.album?items.album:items._id;
-        navigate(`/songs/${CardId}`);
-        console.log(CardId);
+        navigate(toPath || `/songs/${CardId}`);
     }
 
     return (
@@ -32,10 +28,10 @@ const SongCard = ({ items }) => {
                             {items.title}
                         </Typography>
                         <Typography variant="body2">
-                            { items.mood}
+                            { items.featured?items.featured:items.mood}
                         </Typography>
                     </CardContent>
-                    <PlayButton />
+                    <PlayButton audio_url={(singlesong && singlesong[0]?.audio_url) || items.songs?items.songs[0]?.audio_url:items.audio_url}/>
                 </CardActionArea>
             </Card>
         </>

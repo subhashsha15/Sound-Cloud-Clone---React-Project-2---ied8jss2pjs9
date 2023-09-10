@@ -1,0 +1,62 @@
+.following-heading {
+    margin-bottom: 20px;
+    min-height: 32px;
+    font-size: 18px;
+    font-family: Interstate, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
+    color: #999;
+}
+.following-content{
+    display: flex;
+    gap: 45px;
+    padding-bottom: 60px;
+    flex-wrap: wrap;
+}
+.following-artist-details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    margin-bottom: 20px;
+}
+.artist-image{
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.artist-image img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.following-artist-details div:nth-child(3) img{
+    height: 16px;
+    width: 16px;
+}
+.following-artist-details div:nth-child(2){
+    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+.following-artist-details div:nth-child(3){
+    color: #999;
+    font-size: 12px;
+    line-height: 12px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+/* ***************************************** */
+/* Media Queries */
+@media screen and (min-width: 320px) and (max-width: 766px) {
+    .following-content {
+        width: 100%;
+        justify-content: center;
+        gap: 20px;
+    }
+    .artist-image{
+        height: 150px;
+        width: 150px;
+    }
+}

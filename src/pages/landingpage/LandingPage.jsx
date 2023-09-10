@@ -9,30 +9,36 @@ import SearchIcon from '@material-ui/icons/Search';
 import SongCard from "../../components/songcard/SongCard";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { headers } from "../../miscellaneous/miscellaneous";
+import Loader from '../../components/loader/Loader';
+import CloseIcon from '@material-ui/icons/Close';
+import MenuIcon from '@material-ui/icons/Menu';
 const LandingPage = () => {
     const [songs, setSongs] = useState([]);
-    const headers = {
-        'projectId': 'ied8jss2pjs9',
-    };
+    const [loading, setLoading] = useState(true);
+    const [isMenuIconOpen, setIsMenuIconOpen] = useState(false);
     useEffect(() => {
         axios.get('https://academics.newtonschool.co/api/v1/music/album', { headers })
             .then((response) => {
                 setSongs(response.data.data);
+                setLoading(false);
             })
             .catch((error) => {
                 console.log(error.message);
             });
     }, []);
-    // console.log(songs)
 
-    const handleSignUp=(event)=>{
-        const value=event.target.name;
-         if(value=="LogIn"){
-            localStorage.setItem('user',"oldUser");
+    const handleSignUp = (event) => {
+        const value = event.target.name;
+        if (value == "LogIn") {
+            localStorage.setItem('user', "oldUser");
         }
-        else{
-             localStorage.setItem('user',"newUser");
-         }
+        else {
+            localStorage.setItem('user', "newUser");
+        }
+    }
+    const handleMenuIcon = () => {
+        setIsMenuIconOpen(prev => !prev);
     }
     return (
         <>
@@ -56,10 +62,25 @@ const LandingPage = () => {
                                     <Link to="/signup">
                                         <button className="create-account-btn" name="CreateAccount" onClick={handleSignUp}>Create account</button>
                                     </Link>
-                                    <Link to="/signup">
+                                    <Link to="/comingsoon">
                                         <button className="artist-btn">For Artists</button>
                                     </Link>
                                 </div>
+                                {/* ------------------------------ */}
+                                <div className="nav-icon" onClick={handleMenuIcon}>
+                                    {isMenuIconOpen ? <CloseIcon /> : <MenuIcon color="inherit" />}
+                                </div>
+                                {isMenuIconOpen && (<ul class="menu_list">
+                                    <Link to="/signup" className="link">
+                                        <li>Sign in</li>
+                                    </Link>
+                                    <Link to="/signup" className="link">
+                                        <li>Create account</li>
+                                    </Link>
+                                    <Link to="/comingsoon" className="link">
+                                        <li>For Artists</li>
+                                    </Link>
+                                </ul>)}
                             </div>
                             <div className="landingpage-container-top-body1-content">
                                 <h2>Connect on SoundCloud</h2>
@@ -80,17 +101,19 @@ const LandingPage = () => {
                                 or
                             </div>
                             <div className="landingpage-container-top-body2-right">
-                                <button className="landing-uploadbtn">Upload your own</button>
+                                <Link to="/comingsoon">
+                                    <button className="landing-uploadbtn">Upload your own</button>
+                                </Link>
                             </div>
                         </div>
                         <div className="landingpage-container-top-body3">
                             <h3>Hear what’s trending for free in the SoundCloud community</h3>
-                            <div className="songs">
+                            <div className="landingpage-container-top-body3-songs">
                                 {
-                                    songs.map((items) => <SongCard items={items} key={items._id} />).slice(0, 12)
+                                    loading ? (<Loader />) : (songs.slice(24, 36).map((items, index) => <SongCard items={items} key={items._id} toPath={index < 12 ? '/signup' : undefined} />))
                                 }
                             </div>
-                            <Link to="/home">
+                            <Link to="/signup">
                                 <button className="landing-uploadbtn playlist-btn">Explore trending playlists</button>
                             </Link>
                         </div>

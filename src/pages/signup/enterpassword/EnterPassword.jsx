@@ -5,13 +5,15 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { headers } from '../../../miscellaneous/miscellaneous'
 const EnterPassword = (props) => {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
     const [passwordError, setPasswordError] = useState("");
 
     const email = localStorage.getItem('email');
-    localStorage.setItem('password',password);
+    localStorage.setItem('password', password);
     const user = localStorage.getItem('user');
     const navigate = useNavigate();
     const handlePasswordOnChange = (event) => {
@@ -19,24 +21,23 @@ const EnterPassword = (props) => {
         setPassword(event.target.value);
     }
 
-    const headers = {
-        'projectId': 'ied8jss2pjs9',
-    };
-
     const handleSignIn = () => {
         if (password == "") {
             setPasswordError("Password required")
             return;
         }
 
-        const data={
+        const data = {
             email: email,
             password: password,
             appType: 'music',
         }
-            axios.post('https://academics.newtonschool.co/api/v1/user/login',data,{ headers })
+        setLoading(true);
+        axios.post('https://academics.newtonschool.co/api/v1/user/login', data, { headers })
             .then((response) => {
-                console.log("logIn-response",response);
+                localStorage.setItem("Token", response.data.token);
+                localStorage.setItem('UserName', response.data.data.name);
+                setLoading(false);
                 navigate('/home');
             })
             .catch((error) => {
@@ -88,7 +89,7 @@ const EnterPassword = (props) => {
                     </div>
                     {
                         user == "oldUser" ?
-                            <button className="continue-button btn" onClick={handleSignIn}>Sign in</button> :
+                            <button className="continue-button btn" onClick={handleSignIn}>{loading ? "Signing..." : "Sign in"}</button> :
                             <button className="continue-button btn" onClick={handleAcceptAndContinue}>Accept & continue</button>
                     }
                 </div>
@@ -100,7 +101,7 @@ const EnterPassword = (props) => {
                             DisplayForgotPasswordPage: true,
                         })}
                     >
-                        Don’t know your password?
+                        Update your password?
                     </div>) :
                         (
                             <>

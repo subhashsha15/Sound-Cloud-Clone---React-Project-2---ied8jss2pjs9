@@ -1,17 +1,30 @@
-import React, { useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import './Artists.css'
-// import { ArtistsContext } from "../App";
-import { ArtistsContext } from "../App";
+import { generateTwoDigitRandomNumber } from '../../miscellaneous/miscellaneous'
+import doublePersonThumbnail from '../../../public/images/doubleperson-thumbnail.svg';
+import songGraph from '../../../public/images/song-graph.svg';
+import followImg from '../../../public/images/follow-img.svg';
+import followedImg from '../../../public/images/followbtn-clicked.svg';
+const artistsFollowingList = [];
 const Artist = ({ artistItem }) => {
-    console.log("artist re-render");
     const [isFollowBtnClicked, setIsFollowBtnCliked] = useState(false);
-    const {followingArtists,setFollowingArtists}=useContext(ArtistsContext);
-    // const { followingArtistsRef } = useContext(ArtistsContext);
+    const [followerCount, setFollowerCount] = useState(generateTwoDigitRandomNumber());
     const handleFollowBtn = () => {
-        setIsFollowBtnCliked(prevstate => !prevstate);
-        setFollowingArtists([...followingArtists,{artistItem}]); 
-        // followingArtistsRef.current.push(artistItem);
+        setIsFollowBtnCliked(prevIsFollowBtnClicked => !prevIsFollowBtnClicked);
+        setFollowerCount((prevCount) => {return !isFollowBtnClicked ? prevCount + 1 : prevCount - 1});
+
+        const isObjectInArray = artistsFollowingList.some((item) => {
+            return item.artistItem._id === artistItem._id;
+        });
+        if (isObjectInArray) {
+            return;
+        }
+        else {
+            artistsFollowingList.push({ artistItem,followerCount});
+        }
+        localStorage.setItem('ArtistsFollowingList', JSON.stringify(artistsFollowingList))
     }
+
     return (
         <>
             {artistItem && (<div className="artist">
@@ -22,17 +35,17 @@ const Artist = ({ artistItem }) => {
                     <span className="artist-name">{artistItem.name}</span>
                     <ul>
                         <li className="artist-followers">
-                            <img src="/public/images/doubleperson-thumbnail.svg" alt="" />
-                            <span>590</span>
+                            <img src={doublePersonThumbnail} alt="" />
+                            <span>{followerCount}</span>
                         </li>
                         <li className="artist-numberofsongs">
-                            <img src="/public/images/song-graph.svg" alt="" />
+                            <img src={songGraph} alt="" />
                             <span>{artistItem.songs.length}</span>
                         </li>
                     </ul>
                 </div>
-                <button className={isFollowBtnClicked ? "follow-btn clicked" : "follow-btn"} onClick={handleFollowBtn}>
-                    <img src={isFollowBtnClicked ? "/public/images/followbtn-clicked.svg" : "/public/images/follow-img.svg"} alt="" />
+                <button id="followBtn" className={isFollowBtnClicked ? "follow-btn clicked" : "follow-btn"} onClick={handleFollowBtn}>
+                    <img src={isFollowBtnClicked ? followedImg : followImg} alt="" />
                     <span>{isFollowBtnClicked ? "Following" : "Follow"}</span>
                 </button>
             </div>)}
