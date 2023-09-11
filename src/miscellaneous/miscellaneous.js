@@ -1,3 +1,4 @@
+import axios from "axios";
 // This function returns the TOTAL TIME OF ALL THE SONGS in a single ALBUM
 const secondsToHMS = (seconds) => {
   const hours = Math.floor(seconds / 3600);
@@ -65,11 +66,25 @@ const generateFourDigitRandomNumber = () => {
   return randomNumber;
 }
 
+const artistApiCall = (aristsSongArray) => {
+  const promises = aristsSongArray.map((songId) => {
+    return axios.get(`https://academics.newtonschool.co/api/v1/music/song/${songId}`, { headers })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  });
+
+  return Promise.all(promises);
+}
 export {
   secondsToHMS,
   formatDate,
   headers,
   generateThreeDigitRandomNumber,
   generateTwoDigitRandomNumber,
-  generateFourDigitRandomNumber
+  generateFourDigitRandomNumber,
+  artistApiCall
 };

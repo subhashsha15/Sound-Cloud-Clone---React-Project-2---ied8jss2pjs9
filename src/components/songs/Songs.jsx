@@ -5,7 +5,7 @@ import Artist from "../artists/Artists";
 import Footer from "../footer/Footer";
 import axios from "axios";
 import { useParams } from 'react-router-dom';
-import { secondsToHMS, formatDate, headers, generateThreeDigitRandomNumber, generateFourDigitRandomNumber } from '../../miscellaneous/miscellaneous';
+import { secondsToHMS, formatDate, headers, generateThreeDigitRandomNumber, generateFourDigitRandomNumber, artistApiCall } from '../../miscellaneous/miscellaneous';
 import likedBtnImg from '../../../public/images/likedbtn-img.svg'
 import likeBtnImg from '../../../public/images/likebtn-img.svg'
 import shareBtnImg from '../../../public/images/sharebtn-img.svg'
@@ -32,7 +32,7 @@ const Songs = () => {
     const [clickedSong, setClickedSong] = useState(0);
     const [isAddtoPlaylistBtnClicked, setIsAddtoPlaylistBtnCliked] = useState(false);
     const [loading, setLoading] = useState(true);
-
+    console.log('artistlist from songs', artistsList);
     useEffect(() => {
         axios.get(`https://academics.newtonschool.co/api/v1/music/album/${albumId}`, { headers })
             .then((response) => {
@@ -50,16 +50,16 @@ const Songs = () => {
 
 
     const handleClickOnSong = (songItem, index) => {
-        const artistDetails = artistsList.find((artistObject) => artistObject._id === songItem.artist[0])
-        setReleasedDate(formatDate(songItem.dateOfRelease));
-        setArtistName(artistDetails.name);
+        const artistDetails = artistsList.find((artistObject) => artistObject._id === songItem.artist?.[0])
+        setReleasedDate(formatDate(songItem.dateOfRelease || songItem.data.dateOfRelease));
+        setArtistName(artistDetails?.name || songItem.data.artist[0].name);
         setClickedSong(index);
         setIsAddtoPlaylistBtnCliked(false);
     }
-
+  console.log("Artist lists",artistsList)
     const handleCurrentSongLiked = (song, index) => {
         setCurrentSongLiked(!currentSongLiked);
-        handleLikeBtn(song, index);
+        handleLikeBtn(song || song.data, index);
     }
 
     const handleLikeBtn = (songItem, index) => {
@@ -98,7 +98,23 @@ const Songs = () => {
         }
         localStorage.setItem('Playlist', JSON.stringify(Playlist))
     }
+    const handleUpdateSongsList = async (artistItem) => {
+        try {
+            // Call the API here and update the "songsList" state based on the artistItem
+            const updatedSongs = await artistApiCall(artistItem.songs);
 
+            // Check if updatedSongs is an array before setting it in state
+            if (Array.isArray(updatedSongs)) {
+                setSongsList(updatedSongs);
+            } else {
+                console.error("Updated songs data is not an array:", updatedSongs);
+            }
+        } catch (error) {
+            console.error("Error fetching songs data:", error);
+        }
+    }
+    // console.log(artistApiCall);
+    console.log(songsList);
     return (
         <>
             <div className="songs">
@@ -107,10 +123,10 @@ const Songs = () => {
                         <div className="songs-container-top-left">
                             <div className="song-details">
                                 <span className="playbtn">
-                                    <PlayButton audioUrl={songsList[clickedSong]?.audio_url} />
+                                    <PlayButton audioUrl={songsList[clickedSong]?.audio_url || songsList[clickedSong]?.data.audio_url} />
                                 </span>
                                 <span>
-                                    <div className="song-title">{songsList[clickedSong]?.title}</div>
+                                    <div className="song-title">{songsList[clickedSong]?.title || songsList[clickedSong]?.data.title}</div>
                                     {artistName && <h2 className="song-genre">{artistName}</h2>}
                                 </span>
                             </div>
@@ -122,7 +138,7 @@ const Songs = () => {
                         </div>
                         <div className="songs-container-top-right">
                             <span>{releasedDate}</span>
-                            <img src={songsList[clickedSong]?.thumbnail} alt="" />
+                            <img src={songsList[clickedSong]?.thumbnail || songsList[clickedSong]?.data.thumbnail} alt="" />
                         </div>
                     </div>
                     <div className="songs-container-middle">
@@ -156,18 +172,18 @@ const Songs = () => {
                             </div>
                             {
                                 songsList.map((songItem, index) => {
-                                    if (songItem.album == albumId) {
+                                    if (songItem.album == albumId || songItem.data) {
                                         return (<div className="songs-container-middle-left-songs" onClick={() => handleClickOnSong(songItem, index)}>
                                             <div className="songs-container-middle-left-song">
                                                 <div className="songs-container-middle-left-songdetails">
                                                     <div className="thumbnail-img">
-                                                        <img src={songItem.thumbnail} alt="" />
+                                                        <img src={songItem.thumbnail || songItem.data.thumbnail} alt="" />
                                                     </div>
                                                     <div className="index">{index + 1}</div>
                                                     <div className="songDetail" >
-                                                        <span>{songItem.title}</span>
+                                                        <span>{songItem.title || songItem.data.title}</span>
                                                         -
-                                                        <span>{songItem.mood}</span>
+                                                        <span>{songItem.mood || songItem.data.mood}</span>
                                                     </div>
                                                 </div>
                                                 <div className="numberofLikes">
@@ -175,7 +191,7 @@ const Songs = () => {
                                                     <span>{generateThreeDigitRandomNumber()}</span>
                                                 </div>
                                                 <div className="songs-container-middle-left-song-playbtn">
-                                                    <PlayButton audioUrl={songItem.audio_url} />
+                                                    <PlayButton audioUrl={songItem.audio_url || songItem.data.audio_url} />
                                                     <div>
                                                         <button className={likedSongs[index] ? "likedbtn-active" : "" ? "likedbtn-active" : ""}>
                                                             <img src={likedSongs[index] ? likedBtnImg : likeBtnImg}
@@ -215,7 +231,11 @@ const Songs = () => {
                             </div>
                             <div className="artists-featured-items">
                                 {
-                                    artistsList.map((artistItem) => (<Artist artistItem={artistItem} />))
+                                    artistsList.map((artistItem) => (<Artist
+                                        artistItem={artistItem}
+                                        onClick={() => handleUpdateSongsList(artistItem)}
+                                        updateSongsList={handleUpdateSongsList}
+                                    />))
                                 }
                             </div>
                             <Footer fontsize={14} />

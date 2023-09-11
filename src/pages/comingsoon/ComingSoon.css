@@ -1,5 +1,4 @@
 .comingsoon {
-    /* background-color: red; */
     background-image: url('/public/images/coming-soon-background-img4.jpg');
     background-size: cover;
     background-position: center;
@@ -9,12 +8,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1240px;
+
+    width: 100%;
+    max-width: 1240px;
+
     margin: 0px auto;
 }
 
 .coming-soon-container {
-    /* background-color: blue; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,19 +38,21 @@
     font-weight: 400;
 }
 
-.coming-soon-container p:nth-child(3){
+.coming-soon-container p:nth-child(3) {
     font-size: 16px;
     font-weight: 400;
 }
-.coming-soon-container p:nth-child(3) span{
+
+.coming-soon-container p:nth-child(3) span {
     font-size: 14px;
     font-weight: 400;
     color: #677a30;
     padding-left: 5px;
 }
-.coming-soon-container p:nth-child(3) span:hover{
+
+.coming-soon-container p:nth-child(3) span:hover {
     cursor: pointer;
-    color:#072902;
+    color: #072902;
 }
 
 .coming-soon-container button {
@@ -57,15 +60,42 @@
     font-size: 16px;
     position: relative;
 }
-.coming-soon-container button::before{
+
+.coming-soon-container button::before {
     content: "or";
     font-size: 16px;
     position: absolute;
     top: -25px;
     left: 12px;
 }
-.coming-soon-container button:hover{
+
+.coming-soon-container button:hover {
     cursor: pointer;
     text-decoration: underline;
-    text-decoration-color:#072902;
+    text-decoration-color: #072902;
+}
+
+/* ----------------------------------------------------------------------------------- */
+/* Media Query */
+@media screen and (min-width: 320px) and (max-width: 766px) {
+    .comingsoon {
+        padding: 0px 5px;
+    }
+
+    .coming-soon-container {
+        text-align: center;
+        margin-left: 130px;
+    }
+}
+
+@media screen and (min-width: 767px)and (max-width: 1023px) {
+    .coming-soon-container {
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 1024px)and (max-width: 1439px) {
+    .coming-soon-container {
+        text-align: center;
+    }
 }
