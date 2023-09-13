@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import './Songs.css'
 import PlayButton from "../playbutton/PlayButton";
 import Artist from "../artists/Artists";
@@ -20,7 +20,9 @@ import singlePersonThumbnailImg from '../../../public/images/singleperson-thumbn
 import Loader from "../loader/Loader"
 import AudioPlayer from "../audioPlayer/AudioPlayer";
 const Playlist = [];
+let artistDetails;
 const Songs = () => {
+    const audioRef = useRef(null);
     const { id: albumId } = useParams();
     const [songsList, setSongsList] = useState([]);
     const [likedSongs, setLikedSongs] = useState({});
@@ -32,6 +34,7 @@ const Songs = () => {
     const [clickedSong, setClickedSong] = useState(0);
     const [isAddtoPlaylistBtnClicked, setIsAddtoPlaylistBtnCliked] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [isPlaying, setIsPlaying] = useState(false);
     console.log('artistlist from songs', artistsList);
     useEffect(() => {
         axios.get(`https://academics.newtonschool.co/api/v1/music/album/${albumId}`, { headers })
@@ -50,13 +53,15 @@ const Songs = () => {
 
 
     const handleClickOnSong = (songItem, index) => {
-        const artistDetails = artistsList.find((artistObject) => artistObject._id === songItem.artist?.[0])
-        setReleasedDate(formatDate(songItem.dateOfRelease || songItem.data.dateOfRelease));
-        setArtistName(artistDetails?.name || songItem.data.artist[0].name);
+        artistDetails = artistsList.find((artistObject) => artistObject._id === songItem.artist?.[0])
+        setReleasedDate(formatDate(songItem.dateOfRelease || songItem.data?.dateOfRelease));
+        setArtistName(songItem.data ? songItem.data?.artist[0].name : artistDetails?.name);
         setClickedSong(index);
         setIsAddtoPlaylistBtnCliked(false);
+        setIsPlaying(true);
+        console.log("from songs artist name", songItem.data?.artist[0].name);
     }
-  console.log("Artist lists",artistsList)
+    console.log("Artist lists", artistsList)
     const handleCurrentSongLiked = (song, index) => {
         setCurrentSongLiked(!currentSongLiked);
         handleLikeBtn(song || song.data, index);
@@ -123,7 +128,12 @@ const Songs = () => {
                         <div className="songs-container-top-left">
                             <div className="song-details">
                                 <span className="playbtn">
-                                    <PlayButton audioUrl={songsList[clickedSong]?.audio_url || songsList[clickedSong]?.data.audio_url} />
+                                    <PlayButton
+                                        audioUrl={songsList[clickedSong]?.audio_url || songsList[clickedSong]?.data.audio_url}
+                                        isPlaying={isPlaying}
+                                        setIsPlaying={setIsPlaying}
+                                        audioRef={audioRef}
+                                    />
                                 </span>
                                 <span>
                                     <div className="song-title">{songsList[clickedSong]?.title || songsList[clickedSong]?.data.title}</div>
@@ -191,7 +201,9 @@ const Songs = () => {
                                                     <span>{generateThreeDigitRandomNumber()}</span>
                                                 </div>
                                                 <div className="songs-container-middle-left-song-playbtn">
-                                                    <PlayButton audioUrl={songItem.audio_url || songItem.data.audio_url} />
+                                                    <PlayButton
+                                                        audioUrl={songItem.audio_url || songItem.data.audio_url}
+                                                    />
                                                     <div>
                                                         <button className={likedSongs[index] ? "likedbtn-active" : "" ? "likedbtn-active" : ""}>
                                                             <img src={likedSongs[index] ? likedBtnImg : likeBtnImg}
@@ -243,7 +255,16 @@ const Songs = () => {
                     </div>
                 </div>
                 )}
-                <AudioPlayer />
+                <AudioPlayer
+                    isPlaying={isPlaying}
+                    audioRef={audioRef}
+                    clickedSong={clickedSong}
+                    setClickedSong={setClickedSong}
+                    songsList={songsList}
+                    artistName={artistName}
+                    handleClickOnSong={handleClickOnSong}
+                    setIsPlaying={setIsPlaying}
+                />
             </div>
         </>
     )

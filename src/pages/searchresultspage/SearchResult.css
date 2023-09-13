@@ -8,6 +8,9 @@
     width: 1240px;
     background-color: #fff;
     padding: 46px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .searchResult-heading {
@@ -16,7 +19,8 @@
     font-family: Interstate, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
     font-weight: 400;
     line-height: 1.3;
-    width: 1180px;
+    /* width: 1180px; */
+    max-width: 100%; 
     color: #333;
 }
 
@@ -35,6 +39,9 @@
 }
 .searchResult-content {
     display: flex;
+    justify-content: center;
+    width: 100%;
+    height: auto;
     gap: 70px;
     flex-wrap: wrap;
 }
@@ -64,4 +71,16 @@
 .page-active {
     outline: 2px solid #494848b5;
     outline-offset: 3px;
+}
+/* ----------------------------------------------------------------------------------- */
+@media screen and (min-width: 320px) and (max-width: 766px) {
+    .searchResult-content{
+        gap: 30px;
+    }
+}
+
+@media screen and (min-width: 767px)and (max-width: 1023px) {
+    .searchResult-content{
+        gap: 50px;
+    }
 }

@@ -27,6 +27,11 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    width: 38rem;
+}
+
+.start-time {
+    color: #f50;
 }
 
 .bar-line {
@@ -34,6 +39,10 @@
     border: 1px solid #f50;
     width: 32rem;
     height: 0px;
+}
+
+.end-time {
+    color: #333;
 }
 
 .audio-player-song-details {
@@ -98,4 +107,45 @@
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+/* ----------------------------------------------------------------------------------- */
+@media screen and (min-width: 320px) and (max-width: 766px) {
+
+    .bar-line,
+    .start-time,
+    .end-time {
+        display: none;
+    }
+
+    .audio-player-container {
+        gap: 5px;
+        width: 90%;
+    }
+
+    .audio-player-controls {
+        gap: 4px;
+    }
+}
+
+@media screen and (min-width: 767px)and (max-width: 1023px) {
+    .audio-player-container {
+        gap: 30px;
+        width: 100%;
+    }
+
+    .bar-line {
+        width: 20rem;
+    }
+}
+
+@media screen and (min-width: 1024px)and (max-width: 1439px) {
+    .audio-player-container {
+        gap: 25px;
+        width: 100%;
+    }
+
+    .bar-line {
+        width: 30rem;
+    }
 }

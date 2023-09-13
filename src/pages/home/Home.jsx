@@ -11,7 +11,7 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('https://academics.newtonschool.co/api/v1/music/album?sort={"release":-1}', { headers })
+        axios.get('https://academics.newtonschool.co/api/v1/music/album', { headers })
             .then((response) => {
                 const data = response.data.data;
                 console.log("from Home", data);
