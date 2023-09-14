@@ -22,6 +22,7 @@ import AudioPlayer from "../audioPlayer/AudioPlayer";
 const Playlist = [];
 let artistDetails;
 const Songs = () => {
+    console.log("Songs");
     const audioRef = useRef(null);
     const { id: albumId } = useParams();
     const [songsList, setSongsList] = useState([]);
@@ -34,8 +35,9 @@ const Songs = () => {
     const [clickedSong, setClickedSong] = useState(0);
     const [isAddtoPlaylistBtnClicked, setIsAddtoPlaylistBtnCliked] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [loading1, setLoading1] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
-    console.log('artistlist from songs', artistsList);
+
     useEffect(() => {
         axios.get(`https://academics.newtonschool.co/api/v1/music/album/${albumId}`, { headers })
             .then((response) => {
@@ -51,20 +53,18 @@ const Songs = () => {
             });
     }, []);
 
-
     const handleClickOnSong = (songItem, index) => {
-        artistDetails = artistsList.find((artistObject) => artistObject._id === songItem.artist?.[0])
-        setReleasedDate(formatDate(songItem.dateOfRelease || songItem.data?.dateOfRelease));
-        setArtistName(songItem.data ? songItem.data?.artist[0].name : artistDetails?.name);
+        artistDetails = artistsList.find((artistObject) => artistObject?._id === songItem?.artist?.[0])
+        setReleasedDate(formatDate(songItem?.dateOfRelease || songItem?.data?.dateOfRelease));
+        setArtistName(songItem.data ? songItem?.data?.artist[0].name : artistDetails?.name);
         setClickedSong(index);
         setIsAddtoPlaylistBtnCliked(false);
         setIsPlaying(true);
-        console.log("from songs artist name", songItem.data?.artist[0].name);
     }
-    console.log("Artist lists", artistsList)
+
     const handleCurrentSongLiked = (song, index) => {
         setCurrentSongLiked(!currentSongLiked);
-        handleLikeBtn(song || song.data, index);
+        handleLikeBtn(song || song?.data, index);
     }
 
     const handleLikeBtn = (songItem, index) => {
@@ -90,6 +90,7 @@ const Songs = () => {
             [index]: !prevLikedSongs[index],
         }));
     }
+
     const handleAddtoPlayList = () => {
         setIsAddtoPlaylistBtnCliked(true);
         const isObjectInArray = Playlist.some((item) => {
@@ -103,10 +104,13 @@ const Songs = () => {
         }
         localStorage.setItem('Playlist', JSON.stringify(Playlist))
     }
+
     const handleUpdateSongsList = async (artistItem) => {
         try {
             // Call the API here and update the "songsList" state based on the artistItem
-            const updatedSongs = await artistApiCall(artistItem.songs);
+            setLoading1(true);
+            const updatedSongs = await artistApiCall(artistItem?.songs || artistItem?.data?.songs);
+            setLoading1(false);
 
             // Check if updatedSongs is an array before setting it in state
             if (Array.isArray(updatedSongs)) {
@@ -118,8 +122,7 @@ const Songs = () => {
             console.error("Error fetching songs data:", error);
         }
     }
-    // console.log(artistApiCall);
-    console.log(songsList);
+
     return (
         <>
             <div className="songs">
@@ -162,11 +165,11 @@ const Songs = () => {
                                             alt="" />
                                         <span>Like</span>
                                     </button>
-                                    <button className="share-btn">
+                                    <button className="share-btn" onClick={() => alert("This feature is coming soon,please come back later")}>
                                         <img src={shareBtnImg} alt="" />
                                         <span>Share</span>
                                     </button>
-                                    <button >
+                                    <button onClick={() => alert("This feature is coming soon,please come back later")}>
                                         <img src={nextBtnImg} alt="" />
                                         <span>Add to Next up</span>
                                     </button>
@@ -181,19 +184,19 @@ const Songs = () => {
                                 </div>
                             </div>
                             {
-                                songsList.map((songItem, index) => {
-                                    if (songItem.album == albumId || songItem.data) {
+                                loading1 ? <Loader /> : (songsList.map((songItem, index) => {
+                                    if (songItem?.album == albumId || songItem?.data?.album!=albumId) {
                                         return (<div className="songs-container-middle-left-songs" onClick={() => handleClickOnSong(songItem, index)}>
                                             <div className="songs-container-middle-left-song">
                                                 <div className="songs-container-middle-left-songdetails">
                                                     <div className="thumbnail-img">
-                                                        <img src={songItem.thumbnail || songItem.data.thumbnail} alt="" />
+                                                        <img src={songItem?.thumbnail || songItem?.data?.thumbnail} alt="" />
                                                     </div>
                                                     <div className="index">{index + 1}</div>
                                                     <div className="songDetail" >
-                                                        <span>{songItem.title || songItem.data.title}</span>
+                                                        <span>{songItem?.title || songItem?.data?.title}</span>
                                                         -
-                                                        <span>{songItem.mood || songItem.data.mood}</span>
+                                                        <span>{songItem?.mood || songItem?.data?.mood}</span>
                                                     </div>
                                                 </div>
                                                 <div className="numberofLikes">
@@ -202,7 +205,7 @@ const Songs = () => {
                                                 </div>
                                                 <div className="songs-container-middle-left-song-playbtn">
                                                     <PlayButton
-                                                        audioUrl={songItem.audio_url || songItem.data.audio_url}
+                                                        audioUrl={songItem?.audio_url || songItem?.data?.audio_url}
                                                     />
                                                     <div>
                                                         <button className={likedSongs[index] ? "likedbtn-active" : "" ? "likedbtn-active" : ""}>
@@ -212,16 +215,16 @@ const Songs = () => {
                                                                 onClick={() => handleLikeBtn(songItem, index)}
                                                             />
                                                         </button>
-                                                        <button>
+                                                        <button onClick={() => alert("This feature is coming soon,please come back later")}>
                                                             <img src={repostBtnImg} alt="" title="Repost" />
                                                         </button>
-                                                        <button className="share-btn">
+                                                        <button className="share-btn" onClick={() => alert("This feature is coming soon,please come back later")}>
                                                             <img src={shareBtnImg} alt="" title="Share" />
                                                         </button>
-                                                        <button>
+                                                        <button onClick={() => alert("This feature is coming soon,please come back later")}>
                                                             <img src={copylinkBtnImg} alt="" title="Copy Link" />
                                                         </button>
-                                                        <button>
+                                                        <button onClick={() => alert("This feature is coming soon,please come back later")}>
                                                             <img src={moreImg} alt="" title="More" />
                                                         </button>
                                                     </div>
@@ -229,7 +232,7 @@ const Songs = () => {
                                             </div>
                                         </div>)
                                     }
-                                })
+                                }))
                             }
                             <div className="songs-container-bottom">
 
@@ -245,8 +248,8 @@ const Songs = () => {
                                 {
                                     artistsList.map((artistItem) => (<Artist
                                         artistItem={artistItem}
-                                        onClick={() => handleUpdateSongsList(artistItem)}
-                                        updateSongsList={handleUpdateSongsList}
+                                        onClick={()=>handleUpdateSongsList(artistItem)}
+                                        // updateSongsList={handleUpdateSongsList}
                                     />))
                                 }
                             </div>

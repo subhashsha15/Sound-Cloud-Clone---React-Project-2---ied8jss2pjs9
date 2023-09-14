@@ -46,7 +46,7 @@ const Navbar = () => {
     }
     const handleLogout = () => {
         // localStorage.clear();
-        localStorage.removeItem('password');
+        localStorage.removeItem('UserName');
         navigate('/')
     }
     useEffect(() => {
@@ -84,9 +84,10 @@ const Navbar = () => {
             searchValue = searchValueRef.current.value;
         }
         navigate(`/searchresult?query=${searchValue}&totalresults=0`);
-        axios.get(`https://academics.newtonschool.co/api/v1/music/song?filter={"mood":"${searchValue}"}`, { headers })
+        axios.get(`https://academics.newtonschool.co/api/v1/music/song?limit=100&filter={"mood":"${searchValue}"}`, { headers })
             .then((response) => {
                 const data = response.data.data;
+                console.log("from navbar searchresults",data)
                 totalresults = data.length,
                     navigate(`/searchresult?query=${searchValue}&totalresults=${totalresults}`);
             })

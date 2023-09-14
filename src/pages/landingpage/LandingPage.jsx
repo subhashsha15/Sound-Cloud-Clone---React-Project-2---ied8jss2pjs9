@@ -110,7 +110,7 @@ const LandingPage = () => {
                             <h3>Hear what’s trending for free in the SoundCloud community</h3>
                             <div className="landingpage-container-top-body3-songs">
                                 {
-                                    loading ? (<Loader />) : (songs.slice(24, 36).map((items, index) => <SongCard items={items} key={items._id} toPath={index < 12 ? '/signup' : undefined} />))
+                                    loading ? (<Loader />) : (songs.slice(0, 12).map((items, index) => <SongCard items={items} key={items._id} toPath={index < 12 ? '/signup' : undefined} />))
                                 }
                             </div>
                             <Link to="/signup">

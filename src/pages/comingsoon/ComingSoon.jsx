@@ -11,7 +11,7 @@ const ComingSoon = () => {
                 <div className="coming-soon-container">
                     <h1>404</h1>
                     <p>This page is on its way. Thanks for your patience!</p>
-                    {!UserName && (<p>Start from
+                    {UserName && (<p>Start from
                         <Link to="/home" className="link">
                             <span>home page</span>
                         </Link>

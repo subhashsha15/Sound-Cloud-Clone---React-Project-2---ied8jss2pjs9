@@ -12,6 +12,7 @@ import volumeBtnImg from '../../../public/images/volumeBtnImg.svg'
 import silentvolumeBtnImg from '../../../public/images/silentvolumeBtnImg.svg'
 
 const AudioPlayer = ({ isPlaying, audioRef, clickedSong, setClickedSong, songsList,artistName, handleClickOnSong, setIsPlaying }) => {
+    console.log("AudioPlayer");
     const [isShuffle, setIsShuffle] = useState(false);
     const [isRepeat, setIsRepeat] = useState(false);
     const [volume, setVolume] = useState({
@@ -135,7 +136,7 @@ const AudioPlayer = ({ isPlaying, audioRef, clickedSong, setClickedSong, songsLi
             audioRef.current.pause();
         }
 
-        if (audioRef.current) {
+        if (audioRef.current && isPlaying==true) {
             audioRef.current.src = songsList[clickedSong]?.audio_url || songsList[clickedSong]?.data?.audio_url;
             audioRef.current.play();
 

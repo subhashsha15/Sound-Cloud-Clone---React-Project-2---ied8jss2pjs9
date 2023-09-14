@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState ,useRef} from "react"
 import "./Home.css"
 import Slide from "../../components/slider/Slider";
 import SongCard from "../../components/songcard/SongCard";
@@ -7,11 +7,14 @@ import Loader from "../../components/loader/Loader";
 import Footer from "../../components/footer/Footer";
 import { headers } from "../../miscellaneous/miscellaneous";
 const Home = () => {
+    console.log("HOME");
     const [songData, setSongData] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    const [isPlaying, setIsPlaying] = useState(false);
+    const audioRef = useRef(null);
+    const [currentSongIndex, setCurrentSongIndex] = useState(null);
     useEffect(() => {
-        axios.get('https://academics.newtonschool.co/api/v1/music/album', { headers })
+        axios.get('https://academics.newtonschool.co/api/v1/music/album?limit=100', { headers })
             .then((response) => {
                 const data = response.data.data;
                 console.log("from Home", data);
@@ -36,7 +39,18 @@ const Home = () => {
                             <div className="home-container-left-caraousel">
                                 <Slide>
                                     {
-                                        songData.filter((item) => item.songs.length > 0).slice(0, 20).map((items) => <SongCard items={items} key={items._id} singlesong={items.songs} />)
+                                        songData.filter((item) => item.songs.length > 0).slice(0, 20).map((items,index) =>
+                                            <SongCard
+                                                items={items}
+                                                key={items._id}
+                                                singlesong={items.songs}
+                                                isPlaying={isPlaying}
+                                                setIsPlaying={setIsPlaying}
+                                                // currentSongIndex={currentSongIndex}
+                                                // setCurrentSongIndex={setCurrentSongIndex}
+                                                // audioRef={audioRef}
+                                                // index={index}
+                                            />)
                                     }
                                 </Slide>
                             </div>

@@ -5,6 +5,7 @@ import axios from "axios";
 import { useLocation } from 'react-router-dom';
 import Loader from '../../components/loader/Loader'
 const SearchResult = () => {
+    console.log("SearchResult");
     const [pageClicked, setPageClicked] = useState(1);
     const [numberOfPages, setNumberOfPages] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
