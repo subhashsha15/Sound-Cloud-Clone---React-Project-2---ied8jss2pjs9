@@ -420,21 +420,42 @@
     }
 
     .songs-container-top-right img {
-        height: 15rem;
-        width: 15rem;
+        height: 12rem;
+        width: 12rem;
     }
 
     .song-title {
-        max-width: 15rem;
+        max-width: 14rem;
     }
 
     .songs-container-middle {
         flex-direction: column;
     }
 
+    .songs-container-middle-left {
+        width: 100%;
+        padding: 15px 10px;
+    }
+
+    .songs-container-middle-left-songs {
+        margin-left: -10px;
+    }
+
+    .songs-container-middle-left-songdetails {
+        gap: 8px;
+    }
+
     .songs-container-middle-left,
     .songs-container-middle-right,
     .artists-featured-items {
+        width: 100%;
+    }
+
+    .songs-container-middle-right {
+        padding: 40px 12px;
+    }
+
+    .songs-container-middle-left-topIcons {
         width: 100%;
     }
 
@@ -444,7 +465,7 @@
     }
 
     .numberofLikes {
-        margin-left: 1rem;
+        margin-left: 0.3rem;
     }
 
     .songDetail {

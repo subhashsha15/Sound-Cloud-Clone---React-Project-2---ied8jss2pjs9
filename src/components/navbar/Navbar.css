@@ -95,6 +95,31 @@
 
 .special-btn {
     color: #f50 !important;
+    text-decoration: none !important;
+}
+
+.special-btn a {
+    color: #f50 !important;
+    text-decoration: none !important;
+}
+
+.feed-link {
+    color: #ccc;
+    text-decoration: none;
+}
+.feed-link a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.special-artist-btn {
+    color: #f2f2f2;
+    text-decoration: none;
+}
+
+.special-artist-btn a {
+    color: #f2f2f2;
+    text-decoration: none;
 }
 
 .navbar-right img {

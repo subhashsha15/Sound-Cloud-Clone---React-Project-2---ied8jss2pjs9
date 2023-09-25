@@ -120,12 +120,25 @@
     }
 
     .audio-player-container {
-        gap: 5px;
-        width: 90%;
+        gap: 10px;
+        height: 100%;
+        width: 100%;
+        flex-direction: column-reverse;
+    }
+
+    .audio-player-song-details {
+        position: relative;
+        margin-left: 150px;
+    }
+
+    .audio-player-volume-control {
+        position: absolute;
+        top: 12px;
+        left: 30px;
     }
 
     .audio-player-controls {
-        gap: 4px;
+        gap: 20px;
     }
 }
 

@@ -11,8 +11,9 @@ import aftershuffleBtnImg from '../../../public/images/aftershuffleBtnImg.svg'
 import volumeBtnImg from '../../../public/images/volumeBtnImg.svg'
 import silentvolumeBtnImg from '../../../public/images/silentvolumeBtnImg.svg'
 
-const AudioPlayer = ({ isPlaying, audioRef, clickedSong, setClickedSong, songsList,artistName, handleClickOnSong, setIsPlaying }) => {
+const AudioPlayer = ({ isPlaying, clickedSong, setClickedSong, songsList,artistName, handleClickOnSong, setIsPlaying }) => {
     console.log("AudioPlayer");
+    const audioRef = useRef(null);
     const [isShuffle, setIsShuffle] = useState(false);
     const [isRepeat, setIsRepeat] = useState(false);
     const [volume, setVolume] = useState({
@@ -182,6 +183,7 @@ const AudioPlayer = ({ isPlaying, audioRef, clickedSong, setClickedSong, songsLi
                             </div>
                         </div>
                     </div>
+                    <div><audio ref={audioRef} src=""></audio></div>
                 </div>
             </div>
         </>

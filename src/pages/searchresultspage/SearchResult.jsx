@@ -4,7 +4,7 @@ import SongCard from "../../components/songcard/SongCard";
 import axios from "axios";
 import { useLocation } from 'react-router-dom';
 import Loader from '../../components/loader/Loader'
-const SearchResult = () => {
+const SearchResult = ({audioRef}) => {
     console.log("SearchResult");
     const [pageClicked, setPageClicked] = useState(1);
     const [numberOfPages, setNumberOfPages] = useState([]);
@@ -14,6 +14,7 @@ const SearchResult = () => {
     const searchParams = new URLSearchParams(location.search);
     const query = searchParams.get('query');
     const totalresults = searchParams.get('totalresults');
+    const [isPlaying1,setIsPlaying1]=useState(false);
 
     const limit = 20;
     let totalPages = 0;
@@ -60,7 +61,7 @@ const SearchResult = () => {
                     </div>) :
                         (<div className="searchResult-content">
                             {
-                                searchResults?.filter((items) => items.album).map((items) => (<SongCard items={items} key={items._id} />))
+                                searchResults?.filter((items) => items.album).map((items) => (<SongCard items={items} key={items._id} isPlaying1={isPlaying1} setIsPlaying1={setIsPlaying1} audioRef={audioRef}/>))
                             }
                         </div>)}
                     <div className="searchResult-pages" onClick={handlePageClick}>

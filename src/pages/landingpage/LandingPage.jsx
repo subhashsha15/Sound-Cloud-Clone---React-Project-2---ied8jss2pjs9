@@ -63,8 +63,8 @@ const LandingPage = () => {
                                         <button className="create-account-btn" name="CreateAccount" onClick={handleSignUp}>Create account</button>
                                     </Link>
                                     <Link to="/comingsoon">
-                                        <button className="artist-btn">For Artists</button>
                                     </Link>
+                                        <button className="artist-btn"><a href="https://artists.soundcloud.com/">For Artists</a></button>
                                 </div>
                                 {/* ------------------------------ */}
                                 <div className="nav-icon" onClick={handleMenuIcon}>
@@ -110,7 +110,7 @@ const LandingPage = () => {
                             <h3>Hear what’s trending for free in the SoundCloud community</h3>
                             <div className="landingpage-container-top-body3-songs">
                                 {
-                                    loading ? (<Loader />) : (songs.slice(0, 12).map((items, index) => <SongCard items={items} key={items._id} toPath={index < 12 ? '/signup' : undefined} />))
+                                    loading ? (<Loader />) : (songs.filter((item) => item.songs.length > 0).slice(0, 12).map((items, index) => <SongCard items={items} key={items._id} toPath={index < 12 ? '/signup' : undefined} />))
                                 }
                             </div>
                             <Link to="/signup">

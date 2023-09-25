@@ -22,7 +22,6 @@ import AudioPlayer from "../audioPlayer/AudioPlayer";
 const Playlist = [];
 let artistDetails;
 const Songs = () => {
-    console.log("Songs");
     const audioRef = useRef(null);
     const { id: albumId } = useParams();
     const [songsList, setSongsList] = useState([]);
@@ -122,7 +121,8 @@ const Songs = () => {
             console.error("Error fetching songs data:", error);
         }
     }
-
+    console.log(songsList);
+    console.log(clickedSong);
     return (
         <>
             <div className="songs">
@@ -133,9 +133,9 @@ const Songs = () => {
                                 <span className="playbtn">
                                     <PlayButton
                                         audioUrl={songsList[clickedSong]?.audio_url || songsList[clickedSong]?.data.audio_url}
+                                        // audioRef={audioRef}
                                         isPlaying={isPlaying}
                                         setIsPlaying={setIsPlaying}
-                                        audioRef={audioRef}
                                     />
                                 </span>
                                 <span>
@@ -185,7 +185,7 @@ const Songs = () => {
                             </div>
                             {
                                 loading1 ? <Loader /> : (songsList.map((songItem, index) => {
-                                    if (songItem?.album == albumId || songItem?.data?.album!=albumId) {
+                                    if (songItem?.album == albumId || songItem?.data?.album != albumId) {
                                         return (<div className="songs-container-middle-left-songs" onClick={() => handleClickOnSong(songItem, index)}>
                                             <div className="songs-container-middle-left-song">
                                                 <div className="songs-container-middle-left-songdetails">
@@ -205,6 +205,9 @@ const Songs = () => {
                                                 </div>
                                                 <div className="songs-container-middle-left-song-playbtn">
                                                     <PlayButton
+                                                        isPlaying={isPlaying}
+                                                        setIsPlaying={setIsPlaying}
+                                                        // audioRef={audioRef}
                                                         audioUrl={songItem?.audio_url || songItem?.data?.audio_url}
                                                     />
                                                     <div>
@@ -248,8 +251,8 @@ const Songs = () => {
                                 {
                                     artistsList.map((artistItem) => (<Artist
                                         artistItem={artistItem}
-                                        onClick={()=>handleUpdateSongsList(artistItem)}
-                                        // updateSongsList={handleUpdateSongsList}
+                                        onClick={() => handleUpdateSongsList(artistItem)}
+                                    // updateSongsList={handleUpdateSongsList}
                                     />))
                                 }
                             </div>
@@ -260,7 +263,7 @@ const Songs = () => {
                 )}
                 <AudioPlayer
                     isPlaying={isPlaying}
-                    audioRef={audioRef}
+                    // audioRef={audioRef}
                     clickedSong={clickedSong}
                     setClickedSong={setClickedSong}
                     songsList={songsList}

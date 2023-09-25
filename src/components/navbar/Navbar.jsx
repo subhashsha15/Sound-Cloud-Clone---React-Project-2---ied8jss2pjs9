@@ -87,7 +87,7 @@ const Navbar = () => {
         axios.get(`https://academics.newtonschool.co/api/v1/music/song?limit=100&filter={"mood":"${searchValue}"}`, { headers })
             .then((response) => {
                 const data = response.data.data;
-                console.log("from navbar searchresults",data)
+                console.log("from navbar searchresults", data)
                 totalresults = data.length,
                     navigate(`/searchresult?query=${searchValue}&totalresults=${totalresults}`);
             })
@@ -119,8 +119,13 @@ const Navbar = () => {
                                     <li>Home</li>
                                 </NavLink>
                                 <NavLink to="/comingsoon" style={navLinkStyles}>
-                                    <li>Feed</li>
+                                    {/* <li>Feed</li> */}
                                 </NavLink>
+                                <li className="feed-link">
+                                    <a href="https://soundcloud.com/feed">
+                                        Feed
+                                    </a>
+                                </li>
                                 <NavLink to="/library" style={navLinkStyles}>
                                     <li>Library</li>
                                 </NavLink>
@@ -135,14 +140,16 @@ const Navbar = () => {
                     </div>
                     <div className="navbar-right">
                         <NavLink to="/comingsoon" style={navLinkStyles}>
-                            <button className='special-btn'>Try Next Pro</button>
+                            {/* <button className='special-btn'>Try Next Pro</button> */}
                         </NavLink>
+                        <button className='special-btn'><a href="https://checkout.soundcloud.com/artist?ref=t353">Try Next Pro</a></button>
                         <NavLink to="/comingsoon" style={navLinkStyles}>
-                            <button >For Artists</button>
+                            {/* <button >For Artists</button> */}
                         </NavLink>
-                        <NavLink to="/comingsoon">
-                            <button className='special-btn'>Upload</button>
-                        </NavLink>
+                        <button className='special-artist-btn'><a href="https://artists.soundcloud.com/overview">For Artists</a></button>
+                        {/* <NavLink to="/comingsoon">
+                        </NavLink> */}
+                            <button className='special-btn'><a href="https://soundcloud.com/upload">Upload</a></button>
                         <div className="navbar-profile" onClick={handleProfile}>
                             <span>{username?.charAt(0).toUpperCase()}</span>
                             <img src={downarrow} alt="" />
@@ -185,29 +192,29 @@ const Navbar = () => {
                                 </ul>
                             </div>
                         </>)}
-                    <div className="navbar-icon" onClick={handleNavbarMenuIcon}>
-                        {isMenuIconOpen ? <CloseIcon /> : <MenuIcon color="inherit" />}
-                    </div>
-                    {isMenuIconOpen && (<ul class="navbar-menu_list">
-                        <Link to="/home" className="link">
-                            <li>Home</li>
-                        </Link>
-                        <Link to="/signup" className="link">
-                            <li>Feed</li>
-                        </Link>
-                        <Link to="/library" className="link">
-                            <li>Library</li>
-                        </Link>
-                        <Link to="/comingsoon" className="link">
-                            <li>Try Next Pro</li>
-                        </Link>
-                        <Link to="/comingsoon" className="link">
-                            <li>For Artists</li>
-                        </Link>
-                        <Link to="/comingsoon" className="link">
-                            <li>Upload</li>
-                        </Link>
-                    </ul>)}
+                        <div className="navbar-icon" onClick={handleNavbarMenuIcon}>
+                            {isMenuIconOpen ? <CloseIcon /> : <MenuIcon color="inherit" />}
+                        </div>
+                        {isMenuIconOpen && (<ul class="navbar-menu_list">
+                            <Link to="/home" className="link">
+                                <li>Home</li>
+                            </Link>
+                            <Link to="/signup" className="link">
+                                <li>Feed</li>
+                            </Link>
+                            <Link to="/library" className="link">
+                                <li>Library</li>
+                            </Link>
+                            <Link to="/comingsoon" className="link">
+                                <li>Try Next Pro</li>
+                            </Link>
+                            <Link to="/comingsoon" className="link">
+                                <li>For Artists</li>
+                            </Link>
+                            <Link to="/comingsoon" className="link">
+                                <li>Upload</li>
+                            </Link>
+                        </ul>)}
                     </div>
                 </div>
             </div>

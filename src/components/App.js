@@ -11,8 +11,9 @@ import ComingSoon from '../pages/comingsoon/ComingSoon';
 import SearchResult from '../pages/searchresultspage/SearchResult';
 import Library from '../pages/library/Library';
 import AudioPlayer from './audioPlayer/AudioPlayer';
-
 const App = () => {
+  // const audioRef = useRef(null);
+  // // const [isPlaying, setIsPlaying] = useState(false);
   const Layout = () => {
     return (
       <div id="main">
@@ -57,23 +58,15 @@ const App = () => {
           path: "/searchresult",
           element: (<>
             <Navbar />
-            <SearchResult />
+            <SearchResult  />
           </>
           )
         },
         {
-          path: "/library/*",
+          path: "/library",
           element: (<>
             <Navbar />
             <Library />
-          </>
-          )
-        },
-        {
-          path: "/audioplayer",
-          element: (<>
-            <Navbar />
-            <AudioPlayer />
           </>
           )
         },

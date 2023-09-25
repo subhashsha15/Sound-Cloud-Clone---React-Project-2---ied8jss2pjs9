@@ -79,6 +79,10 @@
     padding: 2px 0;
     letter-spacing: 0.4px;
 }
+.artist-btn a{
+    color: #f2f2f2;
+    text-decoration: none;
+}
 
 .landingpage-container-top-body1-header-left span:nth-child(1) img {
     height: 46px;
@@ -434,21 +438,23 @@
     }
 
     .landingpage-container-top-body2-left {
-        padding: 0px 80px;
+        /* padding: 0px 80px; */
+        width: 100%;
     }
 
     .landingpage-container-top-body2-left input {
-        width: 350px;
+        width: 300px;
         font-size: 12px;
+        margin-left: 10px;
     }
 
     .landingpage-container-top-body2-left-search-icon {
-        right: 80px;
+        right: 4px;
     }
 
     .landingpage-container-top-body3-songs {
         justify-content: center;
-        gap: 80px;
+        gap: 10px;
     }
 
     .landingpage-container-middle {
@@ -467,6 +473,17 @@
     .landingpage-container-bottom-bodyTop {
         padding: 0 5px;
         align-items: end;
+            /* background-image: url('../../../public/images/Landingpage-img3.jpg'); */
+            height: 350px;
+            width: 100%;
+            /* background-size: cover; */
+            /* background-position: 100%; */
+            /* background-repeat: no-repeat; */
+            /* color: #fff; */
+            /* padding: 0 570px 0 70px; */
+            /* display: flex; */
+            /* flex-direction: column; */
+            /* justify-content: center; */
     }
 
     .landingpage-container-bottom-bodyTop h2 {
@@ -488,6 +505,9 @@
 
     .landingpage-container-bottom-bodyMiddle {
         text-align: center;
+    }
+    .playlist-btn{
+        width: 78%;
     }
 }
 
