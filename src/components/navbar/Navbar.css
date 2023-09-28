@@ -102,6 +102,10 @@
     color: #f50 !important;
     text-decoration: none !important;
 }
+a:active,.special-btn {
+    background-color: #e5e5e5;
+    text-decoration: none !important;
+}
 
 .feed-link {
     color: #ccc;

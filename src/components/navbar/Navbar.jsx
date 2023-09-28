@@ -105,6 +105,9 @@ const Navbar = () => {
     const handleNavbarMenuIcon = () => {
         setIsMenuIconOpen(prev => !prev);
     }
+    const newPageMessage = () => {
+        alert("This Page is from Real Website,SoundCloud");
+    }
     return (
         <>
             <div className="navbar">
@@ -121,8 +124,8 @@ const Navbar = () => {
                                 <NavLink to="/comingsoon" style={navLinkStyles}>
                                     {/* <li>Feed</li> */}
                                 </NavLink>
-                                <li className="feed-link">
-                                    <a href="https://soundcloud.com/feed">
+                                <li className="feed-link" onClick={newPageMessage}>
+                                    <a href="https://soundcloud.com/feed" target='_blank'>
                                         Feed
                                     </a>
                                 </li>
@@ -142,14 +145,12 @@ const Navbar = () => {
                         <NavLink to="/comingsoon" style={navLinkStyles}>
                             {/* <button className='special-btn'>Try Next Pro</button> */}
                         </NavLink>
-                        <button className='special-btn'><a href="https://checkout.soundcloud.com/artist?ref=t353">Try Next Pro</a></button>
+                        <button className='special-btn' onClick={newPageMessage}><a href="https://checkout.soundcloud.com/artist?ref=t353" target='_blank'>Try Next Pro</a></button>
                         <NavLink to="/comingsoon" style={navLinkStyles}>
                             {/* <button >For Artists</button> */}
                         </NavLink>
-                        <button className='special-artist-btn'><a href="https://artists.soundcloud.com/overview">For Artists</a></button>
-                        {/* <NavLink to="/comingsoon">
-                        </NavLink> */}
-                            <button className='special-btn'><a href="https://soundcloud.com/upload">Upload</a></button>
+                        <button className='special-artist-btn' onClick={newPageMessage}><a href="https://artists.soundcloud.com/overview" target='_blank'>For Artists</a></button>
+                        <button className='special-btn' onClick={newPageMessage}><a href="https://soundcloud.com/upload" target='_blank'>Upload</a></button>
                         <div className="navbar-profile" onClick={handleProfile}>
                             <span>{username?.charAt(0).toUpperCase()}</span>
                             <img src={downarrow} alt="" />

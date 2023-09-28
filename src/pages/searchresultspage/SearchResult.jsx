@@ -39,6 +39,7 @@ const SearchResult = ({audioRef}) => {
                 setLoading(false);
             })
             .catch((error) => {
+                setLoading(false);
                 console.log(error.message);
             });
     }, [pageClicked, query])

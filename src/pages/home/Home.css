@@ -91,18 +91,6 @@
 }
 
 @media screen and (min-width: 767px)and (max-width: 1023px) {
-
-
-
-
-
-
-
-
-
-
-
-
     .home-container-left {
         width: 100%;
     }
@@ -125,12 +113,27 @@
 
 @media screen and (min-width: 1024px)and (max-width: 1439px) {
     .react-multi-carousel-track li {
-        width: 250px !important;
-        margin-right: -30px !important;
+        width: 249px !important;
+        margin-right: -37.1px !important;
+    }
+    .react-multiple-carousel__arrow--left {
+        left: calc(-1.2% + 1px);
+    }
+    .react-multiple-carousel__arrow--right {
+        right: calc(-1% + 1px);
+    }
+
+    .home {
+        width: 100%;
     }
 
     .home-container {
         flex-direction: column;
+        width: 100%;
+    }
+
+    .home-container-left {
+        width: 90%;
     }
 
     .home-container-right {
