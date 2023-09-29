@@ -10,8 +10,9 @@ import beforeshuffleBtnImg from '../../../public/images/beforeshuffleBtnImg.svg'
 import aftershuffleBtnImg from '../../../public/images/aftershuffleBtnImg.svg'
 import volumeBtnImg from '../../../public/images/volumeBtnImg.svg'
 import silentvolumeBtnImg from '../../../public/images/silentvolumeBtnImg.svg'
+import { useFetcher } from "react-router-dom";
 
-const AudioPlayer = ({ isPlaying, clickedSong, setClickedSong, songsList,artistName, handleClickOnSong, setIsPlaying }) => {
+const AudioPlayer = ({ isPlaying, clickedSong, setClickedSong, songsList, artistName, handleClickOnSong, setIsPlaying }) => {
     console.log("AudioPlayer");
     const audioRef = useRef(null);
     const [isShuffle, setIsShuffle] = useState(false);
@@ -137,7 +138,7 @@ const AudioPlayer = ({ isPlaying, clickedSong, setClickedSong, songsList,artistN
             audioRef.current.pause();
         }
 
-        if (audioRef.current && isPlaying==true) {
+        if (audioRef.current && isPlaying == true) {
             audioRef.current.src = songsList[clickedSong]?.audio_url || songsList[clickedSong]?.data?.audio_url;
             audioRef.current.play();
 
@@ -158,9 +159,9 @@ const AudioPlayer = ({ isPlaying, clickedSong, setClickedSong, songsList,artistN
                         <img src={isShuffle ? aftershuffleBtnImg : beforeshuffleBtnImg} alt="" onClick={toggleShuffle} />
                     </div>
                     <div className="audio-player-progress-bar">
-                        <div className="start-time">0:00</div>
+                        <div className="start-time">0:0</div>
                         <div className="bar-line"></div>
-                        <div className="end-time">2:16</div>
+                        <div className="end-time">0:25</div>
                     </div>
                     <div className="audio-player-volume-control">
                         {volume.isClicked && (<input

@@ -133,7 +133,7 @@ const Songs = () => {
                                 <span className="playbtn">
                                     <PlayButton
                                         audioUrl={songsList[clickedSong]?.audio_url || songsList[clickedSong]?.data.audio_url}
-                                        // audioRef={audioRef}
+                                        audioRef={audioRef}
                                         isPlaying={isPlaying}
                                         setIsPlaying={setIsPlaying}
                                     />

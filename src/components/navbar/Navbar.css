@@ -3,7 +3,6 @@
     justify-content: center;
     background-color: #333;
     height: 2.875rem;
-    /* font-family: Interstate, Lucida Grande, Arial, sans-serif; */
     font-weight: 100;
     font-size: 14px;
     line-height: 1.5;
@@ -102,10 +101,10 @@
     color: #f50 !important;
     text-decoration: none !important;
 }
-a:active,.special-btn {
+/* a:active,.special-btn {
     background-color: #e5e5e5;
     text-decoration: none !important;
-}
+} */
 
 .feed-link {
     color: #ccc;
@@ -161,7 +160,6 @@ a:active,.special-btn {
     font-size: 18px;
     font-weight: 600;
     color: #000;
-    /* z-index: 1; */
 }
 
 .more-options,

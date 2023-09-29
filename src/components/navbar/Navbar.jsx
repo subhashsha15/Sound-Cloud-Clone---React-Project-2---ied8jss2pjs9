@@ -12,6 +12,7 @@ import axios from 'axios';
 import { headers } from '../../miscellaneous/miscellaneous';
 import CloseIcon from '@material-ui/icons/Close';
 import MenuIcon from '@material-ui/icons/Menu';
+import Alert from '../alert/Alert'
 const Navbar = () => {
     const [openMoreOtions, setOpenMoreOptions] = useState(false);
     const [openMessageModal, setOpenMessageModal] = useState(false);
@@ -19,6 +20,8 @@ const Navbar = () => {
     const [openProfileModal, setOpenProfileModal] = useState(false);
     const [isMenuIconOpen, setIsMenuIconOpen] = useState(false);
     const searchValueRef = useRef(null);
+    const [open, setOpen] = useState(false);
+    const [link, setLink] = useState("");
     const username = localStorage.getItem('UserName');
     const handleMoreBtn = () => {
         setOpenMoreOptions(prev => !prev);
@@ -105,12 +108,30 @@ const Navbar = () => {
     const handleNavbarMenuIcon = () => {
         setIsMenuIconOpen(prev => !prev);
     }
-    const newPageMessage = () => {
-        alert("This Page is from Real Website,SoundCloud");
+    const newPageMessage = (e, value) => {
+        e.preventDefault();
+        setOpen(true);
+        switch (value) {
+            case "Feed": return setLink("https://soundcloud.com/feed");
+            case "Try Next Pro": return setLink("https://checkout.soundcloud.com/artist?ref=t353");
+            case "For Artists": return setLink("https://artists.soundcloud.com/overview");
+            case "Upload": return setLink("https://soundcloud.com/upload");
+        }
     }
+
+
+    const handleClickOpen = () => {
+        setOpen(false);
+        window.open(link, '_blank');
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
     return (
         <>
             <div className="navbar">
+                <Alert open={open} handleClickOpen={handleClickOpen} handleClose={handleClose} />
                 <div className="navbar-container">
                     <div className="navbar-left">
                         <div className="logo-image">
@@ -124,8 +145,8 @@ const Navbar = () => {
                                 <NavLink to="/comingsoon" style={navLinkStyles}>
                                     {/* <li>Feed</li> */}
                                 </NavLink>
-                                <li className="feed-link" onClick={newPageMessage}>
-                                    <a href="https://soundcloud.com/feed" target='_blank'>
+                                <li className="feed-link" onClick={(e) => newPageMessage(e, "Feed")}>
+                                    <a href="#">
                                         Feed
                                     </a>
                                 </li>
@@ -142,15 +163,15 @@ const Navbar = () => {
                         </div>
                     </div>
                     <div className="navbar-right">
-                        <NavLink to="/comingsoon" style={navLinkStyles}>
-                            {/* <button className='special-btn'>Try Next Pro</button> */}
-                        </NavLink>
-                        <button className='special-btn' onClick={newPageMessage}><a href="https://checkout.soundcloud.com/artist?ref=t353" target='_blank'>Try Next Pro</a></button>
-                        <NavLink to="/comingsoon" style={navLinkStyles}>
-                            {/* <button >For Artists</button> */}
-                        </NavLink>
-                        <button className='special-artist-btn' onClick={newPageMessage}><a href="https://artists.soundcloud.com/overview" target='_blank'>For Artists</a></button>
-                        <button className='special-btn' onClick={newPageMessage}><a href="https://soundcloud.com/upload" target='_blank'>Upload</a></button>
+                        <button className='special-btn' onClick={(e) => newPageMessage(e, "Try Next Pro")}>
+                            <a href="#">Try Next Pro</a>
+                        </button>
+                        <button className='special-artist-btn' onClick={(e) => newPageMessage(e, "For Artists")}>
+                            <a href="#">For Artists</a>
+                        </button>
+                        <button className='special-btn' onClick={(e) => newPageMessage(e, "Upload")}>
+                            <a href="#">Upload</a>
+                        </button>
                         <div className="navbar-profile" onClick={handleProfile}>
                             <span>{username?.charAt(0).toUpperCase()}</span>
                             <img src={downarrow} alt="" />
