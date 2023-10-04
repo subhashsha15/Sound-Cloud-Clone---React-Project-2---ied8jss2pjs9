@@ -24,6 +24,7 @@ let artistDetails;
 const Songs = () => {
     const audioRef = useRef(null);
     const { id: albumId } = useParams();
+    const [counter,setCounter]=useState(0);
     const [songsList, setSongsList] = useState([]);
     const [likedSongs, setLikedSongs] = useState({});
     const [currentSongLiked, setCurrentSongLiked] = useState(false);
@@ -59,6 +60,9 @@ const Songs = () => {
         setClickedSong(index);
         setIsAddtoPlaylistBtnCliked(false);
         setIsPlaying(true);
+        setCounter(counter+1);
+        console.log("songClicked from handleClickSong-index=", index);
+        console.log("songClicked from handleClickSong-songItem=", songItem);
     }
 
     const handleCurrentSongLiked = (song, index) => {
@@ -121,8 +125,8 @@ const Songs = () => {
             console.error("Error fetching songs data:", error);
         }
     }
-    console.log(songsList);
-    console.log(clickedSong);
+console.log("artistList",artistsList);
+console.log("songsList",songsList);
     return (
         <>
             <div className="songs">
@@ -173,7 +177,7 @@ const Songs = () => {
                                         <img src={nextBtnImg} alt="" />
                                         <span>Add to Next up</span>
                                     </button>
-                                    <button className={isAddtoPlaylistBtnClicked && "addtoPlaylistBtnClicked"} onClick={handleAddtoPlayList}>
+                                    <button className={isAddtoPlaylistBtnClicked ? "addtoPlaylistBtnClicked" : ""} onClick={handleAddtoPlayList}>
                                         <img src={playlistBtnImg} alt="" />
                                         <span>Add to playlist</span>
                                     </button>
@@ -185,7 +189,7 @@ const Songs = () => {
                             </div>
                             {
                                 loading1 ? <Loader /> : (songsList.map((songItem, index) => {
-                                    if (songItem?.album == albumId || songItem?.data?.album != albumId) {
+                                    // if (songItem?.album == albumId || songItem?.data?.album != albumId) {
                                         return (<div className="songs-container-middle-left-songs" onClick={() => handleClickOnSong(songItem, index)}>
                                             <div className="songs-container-middle-left-song">
                                                 <div className="songs-container-middle-left-songdetails">
@@ -234,7 +238,7 @@ const Songs = () => {
                                                 </div>
                                             </div>
                                         </div>)
-                                    }
+                                    // }
                                 }))
                             }
                             <div className="songs-container-bottom">
@@ -264,6 +268,7 @@ const Songs = () => {
                 <AudioPlayer
                     isPlaying={isPlaying}
                     // audioRef={audioRef}
+                    counter={counter}
                     clickedSong={clickedSong}
                     setClickedSong={setClickedSong}
                     songsList={songsList}

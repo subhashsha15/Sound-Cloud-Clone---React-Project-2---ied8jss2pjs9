@@ -3,15 +3,12 @@ import './PlayButton.css';
 import playImg from '../../../public/images/playbutton-img.svg'
 import PauseIcon from '@material-ui/icons/Pause';
 const PlayButton = (props) => {
-    console.log("PlayButton props", props);
     const [isSongPlaying, setIsSongPlaying] = useState(false);
     const audioRef1 = useRef(null);
     const [playBtn, setPlayBtn] = useState("off");
     useEffect(() => {
         const audio = audioRef1.current || props?.audioRef?.current;
-        console.log("audio", audio);
         if (isSongPlaying) {
-            console.log("inside if")
             if (audio.src !== props.audio_url || props.audioUrl) {
                 audio.pause();
                 audio.src = props.audio_url || props.audioUrl;
@@ -38,19 +35,22 @@ const PlayButton = (props) => {
         }
     }, [isSongPlaying]);
 
-    // useEffect(()=>{
-    //     setIsSongPlaying(prev=>!prev);
-    // },[props.isPlaying]);
+    useEffect(() => {
+        if(props.isPlaying){
+            setPlayBtn("on");
+        }
+        else{
+            setPlayBtn("off");
+        }
+    }, [props.isPlaying]);
 
     const handlePlayPause = () => {
         setIsSongPlaying(!isSongPlaying);
         if (props.setIsPlaying) {
             props.setIsPlaying(!props.isPlaying);
         }
-        console.log(props.isPlaying);
-        console.log(playBtn);
     };
- 
+
     return (
         <>
             <div className="playbutton" onClick={handlePlayPause}>

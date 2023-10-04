@@ -12,8 +12,7 @@ import volumeBtnImg from '../../../public/images/volumeBtnImg.svg'
 import silentvolumeBtnImg from '../../../public/images/silentvolumeBtnImg.svg'
 import { useFetcher } from "react-router-dom";
 
-const AudioPlayer = ({ isPlaying, clickedSong, setClickedSong, songsList, artistName, handleClickOnSong, setIsPlaying }) => {
-    console.log("AudioPlayer");
+const AudioPlayer = ({ isPlaying, clickedSong, setClickedSong, songsList, artistName, handleClickOnSong, setIsPlaying ,counter}) => {
     const audioRef = useRef(null);
     const [isShuffle, setIsShuffle] = useState(false);
     const [isRepeat, setIsRepeat] = useState(false);
@@ -26,11 +25,14 @@ const AudioPlayer = ({ isPlaying, clickedSong, setClickedSong, songsList, artist
     const togglePlayPause = () => {
         if (audioRef.current) {
             if (audioRef.current.paused) {
-                audioRef.current.play();
-                setIsPlaying(true);
+                audioRef.current.src = songsList[0]?.audio_url || songsList[0]?.data?.audio_url;
+                audioRef.current.play().catch((error) => {
+                    console.error("Failed to play audio:", error);
+                });
+                setIsPlaying(!isPlaying);
             } else {
                 audioRef.current.pause();
-                setIsPlaying(false);
+                setIsPlaying(!isPlaying);
             }
         }
     }
@@ -60,8 +62,6 @@ const AudioPlayer = ({ isPlaying, clickedSong, setClickedSong, songsList, artist
 
         setClickedSong(newIndex);
         handleClickOnSong(songsList[clickedSong], newIndex);
-        // setIsPlaying(true);
-
     }
 
     // Function to play the previous song
@@ -132,6 +132,8 @@ const AudioPlayer = ({ isPlaying, clickedSong, setClickedSong, songsList, artist
     }
 
     useEffect(() => {
+        console.log("from Audioplayer useeffect",clickedSong);
+   
         // Check if the audio element exists and is currently playing
         if (audioRef.current && !audioRef.current.paused) {
             // Pause the audio before changing the source
@@ -145,8 +147,9 @@ const AudioPlayer = ({ isPlaying, clickedSong, setClickedSong, songsList, artist
             // Add a new event listener for the "ended" event
             audioRef.current.addEventListener("ended", handleSongEnd);
         }
-    }, [audioRef, clickedSong, songsList]);
+    }, [audioRef,clickedSong,counter]);
 
+console.log("audioref from useeffect",audioRef);
     return (
         <>
             <div className="audio-player">
