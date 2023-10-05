@@ -24,7 +24,7 @@ let artistDetails;
 const Songs = () => {
     const audioRef = useRef(null);
     const { id: albumId } = useParams();
-    const [counter,setCounter]=useState(0);
+    const [counter, setCounter] = useState(0);
     const [songsList, setSongsList] = useState([]);
     const [likedSongs, setLikedSongs] = useState({});
     const [currentSongLiked, setCurrentSongLiked] = useState(false);
@@ -60,7 +60,7 @@ const Songs = () => {
         setClickedSong(index);
         setIsAddtoPlaylistBtnCliked(false);
         setIsPlaying(true);
-        setCounter(counter+1);
+        setCounter(counter + 1);
         console.log("songClicked from handleClickSong-index=", index);
         console.log("songClicked from handleClickSong-songItem=", songItem);
     }
@@ -125,8 +125,12 @@ const Songs = () => {
             console.error("Error fetching songs data:", error);
         }
     }
-console.log("artistList",artistsList);
-console.log("songsList",songsList);
+
+    const handleClick = (e) => {
+        e.stopPropagation();
+    }
+    console.log("artistList", artistsList);
+    console.log("songsList", songsList);
     return (
         <>
             <div className="songs">
@@ -134,12 +138,13 @@ console.log("songsList",songsList);
                     <div className="songs-container-top">
                         <div className="songs-container-top-left">
                             <div className="song-details">
-                                <span className="playbtn">
+                                <span className="playbtn" onClick={handleClick}>
                                     <PlayButton
                                         audioUrl={songsList[clickedSong]?.audio_url || songsList[clickedSong]?.data.audio_url}
                                         audioRef={audioRef}
                                         isPlaying={isPlaying}
                                         setIsPlaying={setIsPlaying}
+                                        disable="true"
                                     />
                                 </span>
                                 <span>
@@ -190,54 +195,54 @@ console.log("songsList",songsList);
                             {
                                 loading1 ? <Loader /> : (songsList.map((songItem, index) => {
                                     // if (songItem?.album == albumId || songItem?.data?.album != albumId) {
-                                        return (<div className="songs-container-middle-left-songs" onClick={() => handleClickOnSong(songItem, index)}>
-                                            <div className="songs-container-middle-left-song">
-                                                <div className="songs-container-middle-left-songdetails">
-                                                    <div className="thumbnail-img">
-                                                        <img src={songItem?.thumbnail || songItem?.data?.thumbnail} alt="" />
-                                                    </div>
-                                                    <div className="index">{index + 1}</div>
-                                                    <div className="songDetail" >
-                                                        <span>{songItem?.title || songItem?.data?.title}</span>
-                                                        -
-                                                        <span>{songItem?.mood || songItem?.data?.mood}</span>
-                                                    </div>
+                                    return (<div className={clickedSong == index ? "songs-container-middle-left-songs currentSongPlaying" : "songs-container-middle-left-songs"} onClick={() => handleClickOnSong(songItem, index)}>
+                                        <div className="songs-container-middle-left-song">
+                                            <div className="songs-container-middle-left-songdetails">
+                                                <div className="thumbnail-img">
+                                                    <img src={songItem?.thumbnail || songItem?.data?.thumbnail} alt="" />
                                                 </div>
-                                                <div className="numberofLikes">
-                                                    <img src={playImg} alt="" />
-                                                    <span>{generateThreeDigitRandomNumber()}</span>
+                                                <div className="index">{index + 1}</div>
+                                                <div className="songDetail" >
+                                                    <span>{songItem?.title || songItem?.data?.title}</span>
+                                                    -
+                                                    <span>{songItem?.mood || songItem?.data?.mood}</span>
                                                 </div>
-                                                <div className="songs-container-middle-left-song-playbtn">
-                                                    <PlayButton
+                                            </div>
+                                            <div className="numberofLikes">
+                                                <img src={playImg} alt="" />
+                                                <span>{generateThreeDigitRandomNumber()}</span>
+                                            </div>
+                                            <div className="songs-container-middle-left-song-playbtn">
+                                                {/* <PlayButton
                                                         isPlaying={isPlaying}
                                                         setIsPlaying={setIsPlaying}
                                                         // audioRef={audioRef}
                                                         audioUrl={songItem?.audio_url || songItem?.data?.audio_url}
-                                                    />
-                                                    <div>
-                                                        <button className={likedSongs[index] ? "likedbtn-active" : "" ? "likedbtn-active" : ""}>
-                                                            <img src={likedSongs[index] ? likedBtnImg : likeBtnImg}
-                                                                alt=""
-                                                                title={likedSongs[index] ? "likedbtn-active" : "" ? "Unlike" : "Like"}
-                                                                onClick={() => handleLikeBtn(songItem, index)}
-                                                            />
-                                                        </button>
-                                                        <button onClick={() => alert("This feature is coming soon,please come back later")}>
-                                                            <img src={repostBtnImg} alt="" title="Repost" />
-                                                        </button>
-                                                        <button className="share-btn" onClick={() => alert("This feature is coming soon,please come back later")}>
-                                                            <img src={shareBtnImg} alt="" title="Share" />
-                                                        </button>
-                                                        <button onClick={() => alert("This feature is coming soon,please come back later")}>
-                                                            <img src={copylinkBtnImg} alt="" title="Copy Link" />
-                                                        </button>
-                                                        <button onClick={() => alert("This feature is coming soon,please come back later")}>
-                                                            <img src={moreImg} alt="" title="More" />
-                                                        </button>
-                                                    </div>
+                                                    /> */}
+                                                <div className="currentSongPlaying">
+                                                    <button className={likedSongs[index] ? "likedbtn-active" : "" ? "likedbtn-active" : ""}>
+                                                        <img src={likedSongs[index] ? likedBtnImg : likeBtnImg}
+                                                            alt=""
+                                                            title={likedSongs[index] ? "likedbtn-active" : "" ? "Unlike" : "Like"}
+                                                            onClick={() => handleLikeBtn(songItem, index)}
+                                                        />
+                                                    </button>
+                                                    <button onClick={() => alert("This feature is coming soon,please come back later")}>
+                                                        <img src={repostBtnImg} alt="" title="Repost" />
+                                                    </button>
+                                                    <button className="share-btn" onClick={() => alert("This feature is coming soon,please come back later")}>
+                                                        <img src={shareBtnImg} alt="" title="Share" />
+                                                    </button>
+                                                    <button onClick={() => alert("This feature is coming soon,please come back later")}>
+                                                        <img src={copylinkBtnImg} alt="" title="Copy Link" />
+                                                    </button>
+                                                    <button onClick={() => alert("This feature is coming soon,please come back later")}>
+                                                        <img src={moreImg} alt="" title="More" />
+                                                    </button>
                                                 </div>
                                             </div>
-                                        </div>)
+                                        </div>
+                                    </div>)
                                     // }
                                 }))
                             }

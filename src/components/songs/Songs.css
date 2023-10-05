@@ -292,6 +292,10 @@
     background-color: #f2f2f2;
 }
 
+.currentSongPlaying {
+    background-color: #f2f2f2;
+}
+
 .thumbnail-img img {
     width: 30px;
     height: 30px;

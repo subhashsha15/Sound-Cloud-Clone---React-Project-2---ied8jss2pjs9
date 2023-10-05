@@ -23,7 +23,8 @@ const AudioPlayer = ({ isPlaying, clickedSong, setClickedSong, songsList, artist
 
     // Function to toggle play/pause
     const togglePlayPause = () => {
-        if (audioRef.current) {
+        console.log("dshflhsd")
+        if (audioRef?.current) {
             if (audioRef.current.paused) {
                 audioRef.current.src = songsList[0]?.audio_url || songsList[0]?.data?.audio_url;
                 audioRef.current.play().catch((error) => {
@@ -117,7 +118,7 @@ const AudioPlayer = ({ isPlaying, clickedSong, setClickedSong, songsList, artist
         });
     }
     useEffect(() => {
-        if (audioRef.current) {
+        if (audioRef?.current) {
             audioRef.current.volume = volume.value;
         }
     }, [volume.value]);
@@ -135,12 +136,12 @@ const AudioPlayer = ({ isPlaying, clickedSong, setClickedSong, songsList, artist
         console.log("from Audioplayer useeffect",clickedSong);
    
         // Check if the audio element exists and is currently playing
-        if (audioRef.current && !audioRef.current.paused) {
+        if (audioRef?.current && !audioRef.current.paused) {
             // Pause the audio before changing the source
             audioRef.current.pause();
         }
 
-        if (audioRef.current && isPlaying == true) {
+        if (audioRef?.current && isPlaying == true) {
             audioRef.current.src = songsList[clickedSong]?.audio_url || songsList[clickedSong]?.data?.audio_url;
             audioRef.current.play();
 

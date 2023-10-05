@@ -45,6 +45,9 @@ const PlayButton = (props) => {
     }, [props.isPlaying]);
 
     const handlePlayPause = () => {
+        if(props.disable){
+            return;
+        }
         setIsSongPlaying(!isSongPlaying);
         if (props.setIsPlaying) {
             props.setIsPlaying(!props.isPlaying);
@@ -55,7 +58,7 @@ const PlayButton = (props) => {
         <>
             <div className="playbutton" onClick={handlePlayPause}>
                 {playBtn == "off" ? <img src={playImg} alt="" /> : <div className="pausebtn"><PauseIcon fontSize="large" /></div>}
-                <audio ref={audioRef1} src={props.audioUrl || props.audio_url || props.props} ></audio>
+                <audio ref={audioRef1 || props?.audioRef} src={props.audioUrl || props.audio_url || props.props} ></audio>
                 {/* {
                     props.audioRef ? (<audio ref={props.audioRef} src={props.audioUrl || props.audio_url || props.props} ></audio>) : (
                         <audio ref={audioRef1} src={props.audioUrl || props.audio_url || props.props} ></audio>
